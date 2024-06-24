@@ -67,38 +67,53 @@ const CardVideos: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col w-60 h-fit bg-gray_100 rounded-lg shadow-md">
-      <p className="paragraph text-secondary_200 px-5 py-1">Vídeos</p>
-      <div className="flex flex-col items-center">
+    <div className="flex flex-col md:w-60 h-fit bg-gray_100 md:rounded-lg md:shadow-md">
+      <p className="hidden md:block paragraph text-secondary_200 px-5 py-1">
+        Vídeos
+      </p>
+      {/* Conteúdo desktop */}
+      <div className="hidden md:block flex-col items-center">
         {videos.slice(0, visibleVideos).map((video, index) => (
           <Video key={index} video={video} />
         ))}
       </div>
+      {/* Conteúdo mobile */}
+      <div className="flex flex-col md:hidden w-full tems-center gap-10">
+        {videos.slice(0, videos.length).map((video, index) => (
+          <Video key={index} video={video} />
+        ))}
+      </div>
       <div className="w-full">
-        {visibleVideos < videos.length && (
-          <div className="w-full py-1">
-            <div className="w-full h-0.5 bg-gray_200 mb-2"></div>
-            <button
-              className="flex flex-row items-center gap-1 py-1 px-5 text-primary_300 subtitle"
-              onClick={showMoreVideos}
-            >
-              Mostrar mais
-              <Image src={Arrow} alt="Seta para baixo" />
-            </button>
-          </div>
-        )}
-        {visibleVideos > 3 && (
-          <div className="w-full py-1">
-            <div className="w-full h-0.5 bg-gray_200 mb-2"></div>
-            <button
-              className="flex flex-row items-center gap-1 py-1 px-5 text-primary_300 subtitle"
-              onClick={showLessVideos}
-            >
-              Mostrar menos
-              <Image src={Arrow} alt="Seta para cima" className="rotate-180" />
-            </button>
-          </div>
-        )}
+        <div className="hidden md:block">
+          {visibleVideos < videos.length && (
+            <div className="w-full py-1">
+              <div className="w-full h-0.5 bg-gray_200 mb-2"></div>
+              <button
+                className="flex flex-row items-center gap-1 py-1 px-5 text-primary_300 subtitle"
+                onClick={showMoreVideos}
+              >
+                Mostrar mais
+                <Image src={Arrow} alt="Seta para baixo" />
+              </button>
+            </div>
+          )}
+          {visibleVideos > 3 && (
+            <div className="w-full py-1">
+              <div className="w-full h-0.5 bg-gray_200 mb-2"></div>
+              <button
+                className="flex flex-row items-center gap-1 py-1 px-5 text-primary_300 subtitle"
+                onClick={showLessVideos}
+              >
+                Mostrar menos
+                <Image
+                  src={Arrow}
+                  alt="Seta para cima"
+                  className="rotate-180"
+                />
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

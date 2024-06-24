@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import CardArticles from '@/components/Home/CardArticle/page';
 import CardInformative from '@/components/Home/CardInformative/page';
@@ -49,6 +49,10 @@ const fetchInformative = async (): Promise<InformativeData[]> => {
 
 const Home: React.FC = () => {
   const [informativeData, setInformativeData] = useState<InformativeData[]>([]);
+  const [activeTab, setActiveTab] = useState<'noticias' | 'artigos' | 'videos'>(
+    'noticias'
+  );
+  const mainRef = useRef<HTMLMapElement>(null);
 
   useEffect(() => {
     const getInformative = async () => {
@@ -63,14 +67,59 @@ const Home: React.FC = () => {
     getInformative();
   }, []);
 
+  useEffect(() => {
+    const scrollToTop = () => {
+      if (mainRef.current) {
+        mainRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    };
+
+    scrollToTop();
+  }, [activeTab]);
+
   return (
-    <main className="bg-secondary_100 h-screen">
-      <section className="flex flex-col items-center gap-14 px-40 py-14">
-        <h1 className="highlighted-text text-primary_300">Informativos</h1>
+    <main ref={mainRef} className="bg-secondary_100 h-screen relative">
+      <section className="flex flex-col items-center gap-10 md:gap-14 px-5 md:px-40 py-14">
+        {/* Navegação mobile */}
+        <div className="fixed top-0 left-0 md:hidden">
+          <button
+            className={`rounded-b-xl px-5 py-3 paragraph ${activeTab === 'noticias' ? 'bg-primary_300 text-secondary_100' : 'bg-primary_100 text-secondary_200'}`}
+            onClick={() => setActiveTab('noticias')}
+          >
+            Notícias
+          </button>
+          <button
+            className={`rounded-b-xl px-5 py-3 paragraph ${activeTab === 'artigos' ? 'bg-primary_300 text-secondary_100' : 'bg-primary_100 text-secondary_200'}`}
+            onClick={() => setActiveTab('artigos')}
+          >
+            Artigos
+          </button>
+          <button
+            className={`rounded-b-xl px-5 py-3 paragraph ${activeTab === 'videos' ? 'bg-primary_300 text-secondary_100' : 'bg-primary_100 text-secondary_200'}`}
+            onClick={() => setActiveTab('videos')}
+          >
+            Vídeos
+          </button>
+        </div>
+        <h1 className="md:highlighted-text section-title text-primary_300">
+          Informativos
+        </h1>
+        {/* Conteúdo mobile */}
+        <div className="flex flex-col w-full md:gap-5 gap-10 md:hidden">
+          {activeTab === 'noticias' &&
+            informativeData.map((data, index) => (
+              <React.Fragment key={index}>
+                <CardInformative data={data} />
+              </React.Fragment>
+            ))}
+          {activeTab === 'artigos' && <CardArticles />}
+          {activeTab === 'videos' && <CardVideos />}
+        </div>
+        {/* Conteúdo desktop */}
         {informativeData.length === 0 ? (
           <Loading />
         ) : (
-          <div className="flex flex-row gap-5">
+          <div className="hidden md:flex flex-row gap-5">
             <div className="flex flex-col gap-5">
               {informativeData.map((data, index) => (
                 <React.Fragment key={index}>
