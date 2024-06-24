@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
+import { FiChevronDown } from 'react-icons/fi';
+import { FiChevronUp } from 'react-icons/fi';
 
-import Arrow from '../../../../public/Arrow.svg';
 import Article from './Article/page';
 
 interface ArticleData {
@@ -94,7 +94,7 @@ const CardArticles: React.FC = () => {
                 onClick={showMoreArticles}
               >
                 Mostrar mais
-                <Image src={Arrow} alt="Seta para baixo" />
+                <FiChevronDown />
               </button>
             </div>
           )}
@@ -106,11 +106,7 @@ const CardArticles: React.FC = () => {
                 onClick={showLessArticles}
               >
                 Mostrar menos
-                <Image
-                  src={Arrow}
-                  alt="Seta para cima"
-                  className="rotate-180"
-                />
+                <FiChevronUp />
               </button>
             </div>
           )}
