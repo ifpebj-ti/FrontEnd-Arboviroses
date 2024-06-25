@@ -1,8 +1,7 @@
 import { z } from 'zod';
 
-export const mySchema = z
-  .object({
-    email: z.string().email(),
-    password: z.string().min(6)
-  })
-  .required();
+export const mySchema = z.object({
+  email: z.string().email('Email Inválido'),
+  password: z.string(),
+  repeatPassword: z.string().optional()
+});

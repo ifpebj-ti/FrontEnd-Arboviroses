@@ -1,71 +1,73 @@
-// import { AxiosResponse } from 'axios';
-// import CredentialsProvider from 'next-auth/providers/credentials';
-// import { Login } from 'services/UserService';
-// import { jwtDecode } from 'jwt-decode';
-// import { NextAuthOptions, User } from 'next-auth';
+import { NextAuthOptions, User } from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
 
-// type decodeTokenType = {
-//   Id: string;
-//   Role: string;
-//   Email: string;
-//   Nome: string;
-//   Sobrenome: string;
-//   Unidade: string;
-//   Cargo: string;
-//   nbf: number;
-//   exp: number;
-//   iat: number;
-// };
+import { AxiosResponse } from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
-// export const nextAuthOptions: NextAuthOptions = {
-//   providers: [
-//     CredentialsProvider({
-//       name: 'credentials',
-//       credentials: {
-//         email: { label: 'Email', type: 'email' },
-//         password: { label: 'Senha', type: 'password' }
-//       },
+import { Login } from './UserService';
 
-//       async authorize(credentials) {
-//         if (!credentials) {
-//           return null;
-//         }
+type decodeTokenType = {
+  unique_name: string;
+  role: string;
+  email: string;
+  primaryaccess: string;
+  active: string;
+  nbf: number;
+  exp: number;
+  iat: number;
+};
 
-//         const response = (await Login(
-//           credentials!.email,
-//           credentials!.password
-//         )) as AxiosResponse;
+export const nextAuthOptions: NextAuthOptions = {
+  providers: [
+    CredentialsProvider({
+      name: 'credentials',
+      credentials: {
+        email: { label: 'Email', type: 'email' },
+        password: { label: 'Senha', type: 'password' }
+      },
 
-//         if (response.status === 200) {
-//           const decodeToken: decodeTokenType = jwtDecode(response.data.token);
-//           const user: User = {
-//             id: decodeToken.Id,
-//             name: decodeToken.Nome + ' ' + decodeToken.Sobrenome,
-//             email: decodeToken.Email,
-//             role: decodeToken.Role
-//           };
-//           return user;
-//         }
-//         // console.log(response.data.message)
+      async authorize(credentials) {
+        if (!credentials) {
+          return null;
+        }
 
-//         return null;
-//       }
-//     })
-//   ],
-//   pages: {
-//     signIn: '/'
-//   },
-//   callbacks: {
-//     jwt({ token, user }) {
-//       if (user) {
-//         token.role = user.role;
-//       }
+        const response = (await Login(
+          credentials!.email,
+          credentials!.password
+        )) as AxiosResponse;
 
-//       return token;
-//     },
-//     session({ session, token }) {
-//       session.user.role = token.role;
-//       return session;
-//     }
-//   }
-// };
+        if (response.status === 200) {
+          const decodeToken: decodeTokenType = jwtDecode(response.data.token);
+          const user: User = {
+            id: decodeToken.unique_name,
+            name: decodeToken.unique_name,
+            email: decodeToken.email,
+            role: decodeToken.role,
+            accessToken: response.data.token
+          };
+          return user;
+        }
+
+        return null;
+      }
+    })
+  ],
+  pages: {
+    signIn: '/login'
+  },
+  callbacks: {
+    jwt({ token, user }) {
+      if (user) {
+        token.role = user.role;
+        token.accessToken = user.accessToken;
+      }
+
+      return token;
+    },
+    session({ session, token }) {
+      session.user.role = token.role;
+      session.user.accessToken = token.accessToken;
+      return session;
+    }
+  }
+};
