@@ -9,11 +9,11 @@ export default async function PrivateLayout({
 }: {
   children: ReactNode;
 }) {
-  const session = await getServerSession(nextAuthOptions);
+  // const session = await getServerSession(nextAuthOptions);
 
-  if (session) {
-    redirect('/payments');
-  }
+  // if (session) {
+  //   redirect('/');
+  // }
 
   return <>{children}</>;
 }
