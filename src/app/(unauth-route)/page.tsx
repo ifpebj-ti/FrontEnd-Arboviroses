@@ -1,11 +1,11 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
-
 import CardArticles from '@/components/Home/CardArticle/page';
 import CardInformative from '@/components/Home/CardInformative/page';
 import CardVideos from '@/components/Home/CardVideos/page';
 import Loading from '@/components/Loading/page';
 import { NavBar } from '@/components/NavBar';
+import Footer from '@/components/Footer/footer';  
 
 interface InformativeData {
   imageUrl: string;
@@ -136,9 +136,11 @@ const Home: React.FC = () => {
               <CardVideos />
               <CardArticles />
             </div>
+            
           </div>
         )}
       </section>
+      <Footer />
     </main>
   );
 };
