@@ -4,16 +4,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap');
 
 @layer base {
-  .headline-title, .highlighted-text, .main-title, .section-title, .caption, .paragraph, .subtitle {
+  .headline-title,
+  .headline-title-mobile,
+  .highlighted-text,
+  .highlighted-text-mobile,
+  .main-title,
+  .main-title-mobile,
+  .section-title,
+  .section-title-mobile,
+  .caption,
+  .caption-mobile,
+  .paragraph,
+  .paragraph-mobile,
+  .subtitle,
+  .subtitle-mobile {
     font-family: 'Cabin', sans-serif;
     line-height: 120%;
   }
 
-  .headline-title, .main-title, .section-title, .caption {
+  .headline-title,
+  .headline-title-mobile,
+  .main-title,
+  .main-title-mobile,
+  .section-title,
+  .section-title-mobile {
     font-weight: 600;
   }
 
-  .highlighted-text, .paragraph, .subtitle {
+  .highlighted-text,
+  .highlighted-text-mobile,
+  .paragraph,
+  .paragraph-mobile,
+  .caption,
+  .caption-mobile,
+  .subtitle,
+  .subtitle-mobile {
     font-weight: 400;
   }
 
@@ -38,4 +63,31 @@
   .subtitle {
     font-size: 13px;
   }
+  .headline-title-mobile {
+    font-size: 36px;
+  }
+  .highlighted-text {
+    font-size: 32px;
+  }
+  .main-title-mobile {
+    font-size: 24px;
+  }
+  .section-title-mobile {
+    font-size: 16px;
+  }
+  .caption-mobile {
+    font-size: 14px;
+  }
+  .paragraph-mobile {
+    font-size: 12px;
+  }
+  .subtitle-mobile {
+    font-size: 10px;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }

@@ -47,7 +47,7 @@ const fetchInformative = async (): Promise<InformativeData[]> => {
   ];
 };
 
-const Home: React.FC = () => {
+export default function Home() {
   const [informativeData, setInformativeData] = useState<InformativeData[]>([]);
   const [activeTab, setActiveTab] = useState<'noticias' | 'artigos' | 'videos'>(
     'noticias'
@@ -139,6 +139,4 @@ const Home: React.FC = () => {
       </section>
     </main>
   );
-};
-
-export default Home;
+}
