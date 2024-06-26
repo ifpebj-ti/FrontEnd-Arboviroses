@@ -81,9 +81,9 @@ const Home: React.FC = () => {
   return (
     <main ref={mainRef} className="bg-secondary_100 h-screen relative">
       <NavBar isAdmin={true}/>
-      <section className="flex flex-col items-center gap-10 md:gap-14 px-5 md:px-40 py-14">
+      <section className="flex flex-col items-center gap-10 md:gap-14 px-5 md:px-40">
         {/* Navegação mobile */}
-        <div className="fixed top-0 left-0 md:hidden">
+        <div className=" md:hidden w-full -ml-10">
           <button
             className={`rounded-b-xl px-5 py-3 paragraph ${activeTab === 'noticias' ? 'bg-primary_300 text-secondary_100' : 'bg-primary_100 text-secondary_200'}`}
             onClick={() => setActiveTab('noticias')}
