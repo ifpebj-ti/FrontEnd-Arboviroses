@@ -1,45 +1,47 @@
-import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
+import { Login } from '@/service/UserService';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Cookies from 'js-cookie';
+import { jwtDecode } from 'jwt-decode';
 import { z } from 'zod';
 
 import { mySchema } from '../schemas/schema';
 
-export function useCardLogin(rota: string) {
+export function useCardLogin() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors, isSubmitting }
   } = useForm<z.infer<typeof mySchema>>({
     resolver: zodResolver(mySchema)
   });
 
   const { push } = useRouter();
-  const watchPassword = watch('password');
 
   const submitForm: SubmitHandler<z.infer<typeof mySchema>> = async (data) => {
-    if (rota === '/login') {
-      const res = await signIn('credentials', {
-        email: data.email,
-        password: data.password,
-        redirect: false
-      });
+    const res = await Login(data.email, data.password);
 
-      if (res?.error) {
-        toast.error('Usuário ou senha inválidos');
-        return;
-      }
+    console.log(res);
 
+    if (res.status === 404) {
+      toast.error('Usuário não encontrado');
+      return;
+    }
+
+    if (res.status === 200) {
+      Cookies.set('token', res.data.token, { expires: 1, secure: true });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const myUser: any = jwtDecode(res.data.token);
       toast.success('Login efetuado com sucesso');
-      push('/');
-    } else if (rota === '/newPassword') {
-      console.log(data);
-    } else if (rota === '/recoverPassword') {
-      console.log(data);
+      toast.info('Seu primeiro acesso é recomendado alterar a senha');
+      if (myUser.primaryaccess === 'False') {
+        push('/newPassword');
+      } else {
+        push('/');
+      }
     }
   };
 
@@ -47,7 +49,6 @@ export function useCardLogin(rota: string) {
     register,
     handleSubmit,
     submitForm,
-    watchPassword,
     errors,
     isSubmitting
   };

@@ -1,9 +1,9 @@
-import { CardLogin } from '@/components';
+import { CardRecoverPassword } from '@/components/CardRecoverPassword';
 
-export default function newPassword() {
+export default function recoverPassword() {
   return (
     <div className="min-h-screen bg-[url('/backgroundLoginMobile.png')] bg-no-repeat bg-cover bg-center lg:bg-[url('/backgroundLogin.png')] lg:flex">
-      <CardLogin />
+      <CardRecoverPassword />
     </div>
   );
 }

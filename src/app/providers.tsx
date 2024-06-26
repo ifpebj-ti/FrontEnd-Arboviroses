@@ -1,12 +1,11 @@
 'use client';
-import { SessionProvider } from 'next-auth/react';
 import { ReactNode } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Providers({ children }: { children: ReactNode }) {
   return (
-    <SessionProvider>
+    <>
       {children}
       <ToastContainer
         position="top-center"
@@ -20,6 +19,6 @@ export default function Providers({ children }: { children: ReactNode }) {
         pauseOnHover
         theme="colored"
       />
-    </SessionProvider>
+    </>
   );
 }
