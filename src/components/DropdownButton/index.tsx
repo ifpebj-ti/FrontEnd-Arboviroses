@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 
 interface DropdownButtonProps {
   options: string[];
+  onChange: (option: string) => void;
 }
 
-const DropdownButton: React.FC<DropdownButtonProps> = ({ options }) => {
+const DropdownButton: React.FC<DropdownButtonProps> = ({ options, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(options[0]);
 
@@ -15,6 +16,7 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({ options }) => {
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
     setIsOpen(false);
+    onChange(option);
   };
 
   return (
