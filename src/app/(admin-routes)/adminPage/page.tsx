@@ -32,7 +32,7 @@ interface AdminData {
   id: number;
   name: string;
   email: string;
-  access: string;
+  accessCode: string;
   isActive: boolean;
   isAdmin: boolean;
 }
@@ -105,7 +105,7 @@ const Admins: AdminData[] = [
     id: 1,
     name: 'Nome 1',
     email: 'admin@gmail.com',
-    access: '123456789',
+    accessCode: '123456789',
     isActive: true,
     isAdmin: true
   },
@@ -113,7 +113,7 @@ const Admins: AdminData[] = [
     id: 2,
     name: 'Nome 2',
     email: 'teste@gmail.com',
-    access: '987654321',
+    accessCode: '987654321',
     isActive: false,
     isAdmin: false
   }
@@ -185,8 +185,8 @@ const AdminPage: React.FC = () => {
           </div>
         </div>
       </section>
-      <div className="flex flex-col md:flex-row gap-10 md:gap-14 px-5 md:px-40 pt-10">
-        <section className="flex flex-col gap-10 md:gap-14 flex-grow">
+      <section className="flex justify-between w-full py-5 md:px-40 bg-gray_100">
+        <div className="flex flex-col space-y-2 w-3/5">
           <ContentRenderer
             selectedMenu={selectedMenu}
             informatives={Noticias}
@@ -195,22 +195,26 @@ const AdminPage: React.FC = () => {
             onEdit={handleEditInformative}
             onRemove={handleRemoveInformative}
           />
-        </section>
-        <article className="w-full md:w-1/3">
-          <div className="space-y-4">
-            {Admins.map(admin => (
-              <AdminCard
-                key={admin.id}
-                data={admin}
-                onEdit={handleEditAdmin}
-                onRemove={handleRemoveAdmin}
-              />
-            ))}
-          </div>
-        </article>
-      </div>
+        </div>
+        <div className="flex flex-col items-center space-y-2 w-96">
+          <article className="relative w-full">
+            <div className="space-y-4">
+              {Admins.map((admin) => (
+                <AdminCard
+                  key={admin.id}
+                  data={admin}
+                  onEdit={handleEditAdmin}
+                  onRemove={handleRemoveAdmin}
+                />
+              ))}
+            </div>
+          </article>
+        </div>
+      </section>
     </main>
   );
 };
 
 export default AdminPage;
+
+

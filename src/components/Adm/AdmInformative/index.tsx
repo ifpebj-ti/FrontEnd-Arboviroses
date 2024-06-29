@@ -15,9 +15,13 @@ interface AdmInformativeProps {
   onRemove: (id: number) => void;
 }
 
-const AdmInformative: React.FC<AdmInformativeProps> = ({ data, onEdit, onRemove }) => {
+const AdmInformative: React.FC<AdmInformativeProps> = ({
+  data,
+  onEdit,
+  onRemove
+}) => {
   return (
-    <div className="flex flex-col md:flex-row gap-2 p-4 border rounded-lg shadow-md bg-white relative max-w-[563px] max-h-[157px]">
+    <div className="flex flex-col md:flex-row gap-2 p-4 border rounded-lg shadow-md bg-white w-full">
       <img
         src={data.imageUrl}
         alt={`Imagem de ${data.topic}`}
