@@ -165,7 +165,7 @@ const AdminPage: React.FC = () => {
               onChange={handleMenuChange}
             />
           ))}
-          <div className="flex flex-col items-center space-y-2">
+          <div className="hidden md:flex flex-col items-center space-y-2">
             <h2 className="text-sm font-semibold text-green-700">
               Informativos
             </h2>
@@ -174,7 +174,7 @@ const AdminPage: React.FC = () => {
               onClick={handleInformativoClick}
             />
           </div>
-          <div className="flex flex-col items-center space-y-2">
+          <div className="hidden md:flex flex-col items-center space-y-2">
             <h2 className="text-sm font-semibold text-green-700">
               Administradores
             </h2>
@@ -185,8 +185,8 @@ const AdminPage: React.FC = () => {
           </div>
         </div>
       </section>
-      <section className="flex justify-between w-full py-5 md:px-40 bg-gray_100">
-        <div className="flex flex-col space-y-2 w-3/5">
+      <section className="flex flex-col xl:flex-row justify-between w-full py-5 md:px-40 bg-gray_100">
+        <div className="flex flex-col space-y-2 w-full xl:w-3/5">
           <ContentRenderer
             selectedMenu={selectedMenu}
             informatives={Noticias}
@@ -196,15 +196,14 @@ const AdminPage: React.FC = () => {
             onRemove={handleRemoveInformative}
           />
         </div>
-        <div className="flex flex-col items-center space-y-2 w-96">
+        <div className="hidden xl:flex flex-col items-center space-y-2 w-96">
           <article className="relative w-full">
             <div className="space-y-4">
               {Admins.map((admin) => (
                 <AdminCard
                   key={admin.id}
                   data={admin}
-                  onEdit={handleEditAdmin}
-                  onRemove={handleRemoveAdmin}
+                  onToggleActive={() => { }}
                 />
               ))}
             </div>
@@ -216,5 +215,3 @@ const AdminPage: React.FC = () => {
 };
 
 export default AdminPage;
-
-
