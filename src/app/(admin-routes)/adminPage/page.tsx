@@ -133,15 +133,7 @@ const AdminPage: React.FC = () => {
   const handleRemoveInformative = (id: number) => {
     setInformatives(prevInformatives => prevInformatives.filter(informative => informative.id !== id));
   };
-
-  const handleEditAdmin = (id: number) => {
-    console.log('Editar administrador com id:', id);
-  };
-
-  const handleRemoveAdmin = (id: number) => {
-    setAdmins(prevAdmins => prevAdmins.filter(admin => admin.id !== id));
-  };
-
+  
   const handleInformativoClick = () => {
     console.log('Novo informativo');
   };
