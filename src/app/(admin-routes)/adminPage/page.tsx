@@ -5,6 +5,7 @@ import DropdownButton from '@/components/DropdownButton';
 import ActionButton from '@/components/ActionButton';
 import AdminCard from '@/components/Adm/AdminCard';
 import ContentRenderer from '@/components/Adm/ContentRenderer';
+import ModalForm from '@/components/Adm/ModalForm';
 
 interface DadosMenu {
   Menu: string[];
@@ -121,6 +122,8 @@ const Admins: AdminData[] = [
 
 const AdminPage: React.FC = () => {
   const [selectedMenu, setSelectedMenu] = useState<string>(dados[0].Menu[0]);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [modalTitle, setModalTitle] = useState<string>('');
 
   const handleMenuChange = (menu: string) => {
     setSelectedMenu(menu);
@@ -131,15 +134,22 @@ const AdminPage: React.FC = () => {
   };
 
   const handleRemoveInformative = (id: number) => {
-    setInformatives(prevInformatives => prevInformatives.filter(informative => informative.id !== id));
-  };
-  
+    setInformatives(prevInformatives => prevInformatives.filter(informative => informative.id !== id)
+  )};
+
   const handleInformativoClick = () => {
-    console.log('Novo informativo');
+    setModalTitle('Novo Informativo');
+    setShowModal(true);
   };
 
   const handleAdministradorClick = () => {
-    console.log('Novo administrador');
+    setModalTitle('Novo Administrador');
+    setShowModal(true);
+  };
+
+  const handleModalSubmit = (data: any) => {
+    console.log('Form data submitted:', data);
+    // Aqui você pode adicionar a lógica para salvar os dados do formulário
   };
 
   return (
@@ -202,6 +212,13 @@ const AdminPage: React.FC = () => {
           </article>
         </div>
       </section>
+      {showModal && (
+        <ModalForm
+          title={modalTitle}
+          onClose={() => setShowModal(false)}
+          onSubmit={handleModalSubmit}
+        />
+      )}
     </main>
   );
 };
