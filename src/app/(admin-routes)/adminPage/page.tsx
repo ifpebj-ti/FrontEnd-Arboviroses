@@ -5,7 +5,8 @@ import DropdownButton from '@/components/DropdownButton';
 import ActionButton from '@/components/ActionButton';
 import AdminCard from '@/components/Adm/AdminCard';
 import ContentRenderer from '@/components/Adm/ContentRenderer';
-import ModalForm from '@/components/Adm/ModalForm';
+import ModalForm from '@/components/Adm/InformativeForms';
+import AdminModalForm from '@/components/Adm/AdmsForms';
 
 interface DadosMenu {
   Menu: string[];
@@ -44,14 +45,14 @@ const dados: DadosMenu[] = [
   }
 ];
 
-const Noticias: InformativeData[] = [
+const initialNoticias: InformativeData[] = [
   {
     id: 1,
     imageUrl: 'https://via.placeholder.com/300',
     topic: 'Noticias',
     title: 'Noticia 1',
     linkTitle: 'Leia mais',
-    linkUrl: 'https://example.com/noticia1'
+    linkUrl: 'https://example.com/link1'
   },
   {
     id: 2,
@@ -59,18 +60,18 @@ const Noticias: InformativeData[] = [
     topic: 'Noticias',
     title: 'Noticia 2',
     linkTitle: 'Leia mais',
-    linkUrl: 'https://example.com/noticia2'
+    linkUrl: 'https://example.com/link1'
   }
 ];
 
-const Artigos: InformativeData[] = [
+const initialArtigos: InformativeData[] = [
   {
     id: 1,
     imageUrl: 'https://via.placeholder.com/300',
     topic: 'Artigos',
     title: 'Artigo 1',
     linkTitle: 'Leia mais',
-    linkUrl: 'https://example.com/artigo1'
+    linkUrl: 'https://example.com/link1'
   },
   {
     id: 2,
@@ -78,18 +79,18 @@ const Artigos: InformativeData[] = [
     topic: 'Artigos',
     title: 'Artigo 2',
     linkTitle: 'Leia mais',
-    linkUrl: 'https://example.com/artigo2'
+    linkUrl: 'https://example.com/link1'
   }
 ];
 
-const Videos: VideoData[] = [
+const initialVideos: VideoData[] = [
   {
     id: 1,
     imageUrl: 'https://via.placeholder.com/300',
     topic: 'Videos',
     title: 'Video 1',
     linkTitle: 'Assista',
-    linkUrl: 'https://example.com/video1'
+    linkUrl: 'https://example.com/link1'
   },
   {
     id: 2,
@@ -97,7 +98,7 @@ const Videos: VideoData[] = [
     topic: 'Videos',
     title: 'Video 2',
     linkTitle: 'Assista',
-    linkUrl: 'https://example.com/video2'
+    linkUrl: 'https://example.com/link1'
   }
 ];
 
@@ -124,32 +125,118 @@ const AdminPage: React.FC = () => {
   const [selectedMenu, setSelectedMenu] = useState<string>(dados[0].Menu[0]);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [modalTitle, setModalTitle] = useState<string>('');
+  const [noticias, setNoticias] = useState<InformativeData[]>(initialNoticias);
+  const [artigos, setArtigos] = useState<InformativeData[]>(initialArtigos);
+  const [videos, setVideos] = useState<VideoData[]>(initialVideos);
+  const [admins, setAdmins] = useState<AdminData[]>(Admins);
+  const [editingItem, setEditingItem] = useState<any>(null); // Pode ser InformativeData ou AdminData
 
   const handleMenuChange = (menu: string) => {
     setSelectedMenu(menu);
   };
 
   const handleEditInformative = (id: number) => {
-    console.log('Editar informativo com id:', id);
+    const itemToEdit =
+      selectedMenu === 'Noticias' ? noticias.find(item => item.id === id) :
+        selectedMenu === 'Artigos' ? artigos.find(item => item.id === id) :
+          selectedMenu === 'Videos' ? videos.find(item => item.id === id) : null;
+
+    if (itemToEdit) {
+      setEditingItem(itemToEdit);
+      setModalTitle('Editar Informativo');
+      setShowModal(true);
+    }
+  };
+
+  const handleEditAdmin = (id: number) => {
+    const adminToEdit = admins.find(admin => admin.id === id);
+    if (adminToEdit) {
+      setEditingItem(adminToEdit);
+      setModalTitle('Editar Administrador');
+      setShowModal(true);
+    }
   };
 
   const handleRemoveInformative = (id: number) => {
-    setInformatives(prevInformatives => prevInformatives.filter(informative => informative.id !== id)
-  )};
+    if (selectedMenu === 'Noticias') {
+      setNoticias((prevNoticias) =>
+        prevNoticias.filter((noticia) => noticia.id !== id)
+      );
+    } else if (selectedMenu === 'Artigos') {
+      setArtigos((prevArtigos) =>
+        prevArtigos.filter((artigo) => artigo.id !== id)
+      );
+    } else if (selectedMenu === 'Videos') {
+      setVideos((prevVideos) => prevVideos.filter((video) => video.id !== id));
+    }
+  };
 
   const handleInformativoClick = () => {
+    setEditingItem(null);
     setModalTitle('Novo Informativo');
     setShowModal(true);
   };
 
   const handleAdministradorClick = () => {
+    setEditingItem(null);
     setModalTitle('Novo Administrador');
     setShowModal(true);
   };
 
   const handleModalSubmit = (data: any) => {
-    console.log('Form data submitted:', data);
-    // Aqui você pode adicionar a lógica para salvar os dados do formulário
+    if (editingItem) {
+      // Update the existing item
+      const updatedItem = { ...editingItem, ...data };
+      if (selectedMenu === 'Noticias') {
+        setNoticias((prevNoticias) =>
+          prevNoticias.map((noticia) =>
+            noticia.id === editingItem.id ? updatedItem : noticia
+          )
+        );
+      } else if (selectedMenu === 'Artigos') {
+        setArtigos((prevArtigos) =>
+          prevArtigos.map((artigo) =>
+            artigo.id === editingItem.id ? updatedItem : artigo
+          )
+        );
+      } else if (selectedMenu === 'Videos') {
+        setVideos((prevVideos) =>
+          prevVideos.map((video) =>
+            video.id === editingItem.id ? updatedItem : video
+          )
+        );
+      } else {
+        setAdmins((prevAdmins) =>
+          prevAdmins.map((admin) =>
+            admin.id === editingItem.id ? updatedItem : admin
+          )
+        );
+      }
+    } else {
+      // Create a new item
+      const newInformative = {
+        id: Date.now(), // Utilizando timestamp como ID temporário
+        imageUrl: 'https://via.placeholder.com/300', // Você pode mudar isso para uma URL real
+        topic: selectedMenu,
+        ...data
+      };
+
+      if (selectedMenu === 'Noticias') {
+        setNoticias((prevNoticias) => [...prevNoticias, newInformative]);
+      } else if (selectedMenu === 'Artigos') {
+        setArtigos((prevArtigos) => [...prevArtigos, newInformative]);
+      } else if (selectedMenu === 'Videos') {
+        setVideos((prevVideos) => [...prevVideos, newInformative]);
+      } else {
+        const newAdmin = {
+          id: Date.now(), // Utilizando timestamp como ID temporário
+          ...data
+        };
+        setAdmins((prevAdmins) => [...prevAdmins, newAdmin]);
+      }
+    }
+
+    setShowModal(false);
   };
 
   return (
@@ -191,9 +278,9 @@ const AdminPage: React.FC = () => {
         <div className="flex flex-col space-y-2 w-full xl:w-3/5">
           <ContentRenderer
             selectedMenu={selectedMenu}
-            informatives={Noticias}
-            articles={Artigos}
-            videos={Videos}
+            informatives={noticias}
+            articles={artigos}
+            videos={videos}
             onEdit={handleEditInformative}
             onRemove={handleRemoveInformative}
           />
@@ -201,7 +288,7 @@ const AdminPage: React.FC = () => {
         <div className="hidden xl:flex flex-col items-center space-y-2 w-96">
           <article className="relative w-full">
             <div className="space-y-4">
-              {Admins.map((admin) => (
+              {admins.map((admin) => (
                 <AdminCard
                   key={admin.id}
                   data={admin}
@@ -212,13 +299,21 @@ const AdminPage: React.FC = () => {
           </article>
         </div>
       </section>
-      {showModal && (
-        <ModalForm
-          title={modalTitle}
-          onClose={() => setShowModal(false)}
-          onSubmit={handleModalSubmit}
-        />
-      )}
+      {showModal &&
+        (selectedMenu === 'Administradores' ? (
+          <AdminModalForm
+            title={modalTitle}
+            onClose={() => setShowModal(false)}
+            onSubmit={handleModalSubmit}
+          />
+        ) : (
+          <ModalForm
+            title={modalTitle}
+            onClose={() => setShowModal(false)}
+            onSubmit={handleModalSubmit}
+            initialData={editingItem}
+          />
+        ))}
     </main>
   );
 };

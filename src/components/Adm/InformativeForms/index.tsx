@@ -1,20 +1,33 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface ModalFormProps {
   title: string;
   onClose: () => void;
   onSubmit: (data: any) => void;
+  initialData?: any;
 }
 
-const ModalForm: React.FC<ModalFormProps> = ({ title, onClose, onSubmit }) => {
+const ModalForm: React.FC<ModalFormProps> = ({
+  title,
+  onClose,
+  onSubmit,
+  initialData
+}) => {
   const [formData, setFormData] = useState({ title: '', content: '' });
 
+  useEffect(() => {
+    if (initialData) {
+      setFormData(initialData);
+    }
+  }, [initialData]);
+
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
@@ -30,7 +43,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ title, onClose, onSubmit }) => {
         <h2 className="text-xl mb-4">{title}</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-gray-700">Title</label>
+            <label className="block text-gray-700">Título</label>
             <input
               type="text"
               name="title"
@@ -41,8 +54,8 @@ const ModalForm: React.FC<ModalFormProps> = ({ title, onClose, onSubmit }) => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700">Content</label>
-            <textarea
+            <label className="block text-gray-700">Link para Conteúdo</label>
+            <input
               name="content"
               value={formData.content}
               onChange={handleChange}
@@ -56,13 +69,13 @@ const ModalForm: React.FC<ModalFormProps> = ({ title, onClose, onSubmit }) => {
               onClick={onClose}
               className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
             >
-              Cancel
+              Cancelar
             </button>
             <button
               type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded"
             >
-              Submit
+              Enviar
             </button>
           </div>
         </form>
