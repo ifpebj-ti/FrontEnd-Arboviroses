@@ -1,4 +1,3 @@
-'use client';
 import React, { useState, useEffect } from 'react';
 
 interface ModalFormProps {
@@ -39,7 +38,7 @@ const ModalForm: React.FC<ModalFormProps> = ({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white p-8 rounded shadow-lg w-1/3">
+      <div className="bg-white p-8 rounded shadow-lg w-full max-w-md mx-4 md:w-1/3">
         <h2 className="text-xl mb-4">{title}</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">

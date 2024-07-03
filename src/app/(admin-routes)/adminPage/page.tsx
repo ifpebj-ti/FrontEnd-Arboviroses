@@ -125,34 +125,32 @@ const AdminPage: React.FC = () => {
   const [selectedMenu, setSelectedMenu] = useState<string>(dados[0].Menu[0]);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [modalTitle, setModalTitle] = useState<string>('');
+  const [modalType, setModalType] = useState<string>('');
   const [noticias, setNoticias] = useState<InformativeData[]>(initialNoticias);
   const [artigos, setArtigos] = useState<InformativeData[]>(initialArtigos);
   const [videos, setVideos] = useState<VideoData[]>(initialVideos);
   const [admins, setAdmins] = useState<AdminData[]>(Admins);
-  const [editingItem, setEditingItem] = useState<any>(null); // Pode ser InformativeData ou AdminData
+  const [editingItem, setEditingItem] = useState<any>(null);
 
   const handleMenuChange = (menu: string) => {
     setSelectedMenu(menu);
   };
 
   const handleEditInformative = (id: number) => {
-    const itemToEdit =
-      selectedMenu === 'Noticias' ? noticias.find(item => item.id === id) :
-        selectedMenu === 'Artigos' ? artigos.find(item => item.id === id) :
-          selectedMenu === 'Videos' ? videos.find(item => item.id === id) : null;
+    let itemToEdit = null;
+
+    if (selectedMenu === 'Noticias') {
+      itemToEdit = noticias.find((item) => item.id === id);
+    } else if (selectedMenu === 'Artigos') {
+      itemToEdit = artigos.find((item) => item.id === id);
+    } else if (selectedMenu === 'Videos') {
+      itemToEdit = videos.find((item) => item.id === id);
+    }
 
     if (itemToEdit) {
       setEditingItem(itemToEdit);
       setModalTitle('Editar Informativo');
-      setShowModal(true);
-    }
-  };
-
-  const handleEditAdmin = (id: number) => {
-    const adminToEdit = admins.find(admin => admin.id === id);
-    if (adminToEdit) {
-      setEditingItem(adminToEdit);
-      setModalTitle('Editar Administrador');
+      setModalType('informative');
       setShowModal(true);
     }
   };
@@ -174,12 +172,14 @@ const AdminPage: React.FC = () => {
   const handleInformativoClick = () => {
     setEditingItem(null);
     setModalTitle('Novo Informativo');
+    setModalType('informative');
     setShowModal(true);
   };
 
   const handleAdministradorClick = () => {
     setEditingItem(null);
     setModalTitle('Novo Administrador');
+    setModalType('admin');
     setShowModal(true);
   };
 
@@ -292,7 +292,7 @@ const AdminPage: React.FC = () => {
                 <AdminCard
                   key={admin.id}
                   data={admin}
-                  onToggleActive={() => { }}
+                  onToggleActive={() => {}}
                 />
               ))}
             </div>
@@ -300,7 +300,7 @@ const AdminPage: React.FC = () => {
         </div>
       </section>
       {showModal &&
-        (selectedMenu === 'Administradores' ? (
+        (modalType === 'admin' ? (
           <AdminModalForm
             title={modalTitle}
             onClose={() => setShowModal(false)}
