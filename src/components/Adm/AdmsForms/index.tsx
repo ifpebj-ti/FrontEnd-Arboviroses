@@ -14,14 +14,14 @@ interface AdminModalFormProps {
   title: string;
   onClose: () => void;
   onSubmit: (data: AdminData) => void;
-  initialData?: AdminData; // To edit the admin data
+  initialData?: AdminData;
 }
 
 const AdminModalForm: React.FC<AdminModalFormProps> = ({
   title,
   onClose,
   onSubmit,
-  initialData // To edit the admin data
+  initialData
 }) => {
   const [formData, setFormData] = useState<AdminData>({
     id: 0,

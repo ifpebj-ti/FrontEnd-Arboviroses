@@ -237,6 +237,14 @@ const AdminPage: React.FC = () => {
     setShowModal(false);
   };
 
+  const handleToggleActive = (id: number) => {
+    setAdmins((prevAdmins) =>
+      prevAdmins.map((admin) =>
+        admin.id === id ? { ...admin, isActive: !admin.isActive } : admin
+      )
+    );
+  };
+
   return (
     <main className="bg-secondary_100 h-screen relative">
       <nav className="z-50">
@@ -278,7 +286,7 @@ const AdminPage: React.FC = () => {
                 <AdminCard
                   key={admin.id}
                   data={admin}
-                  onToggleActive={() => {}}
+                  onToggleActive={() => handleToggleActive(admin.id)}
                 />
               ))}
             </div>

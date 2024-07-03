@@ -11,10 +11,23 @@ interface AdminData {
 
 interface AdminCardProps {
   data: AdminData;
-  onToggleActive: (isActive: boolean) => void;
+  onToggleActive: () => void;
 }
 
 const AdminCard: React.FC<AdminCardProps> = ({ data, onToggleActive }) => {
+  const handleCopy = () => {
+    const adminInfo = `
+      Nome: ${data.name}
+      Email: ${data.email}
+      Código de Acesso: ${data.accessCode}
+      Ativo: ${data.isActive ? 'Sim' : 'Não'}
+      Administrador: ${data.isAdmin ? 'Sim' : 'Não'}
+    `;
+    navigator.clipboard.writeText(adminInfo).then(() => {
+      alert('Dados copiados para a área de transferência!');
+    });
+  };
+
   return (
     <div className="flex flex-col p-4 border rounded-lg shadow-md bg-white relative xl:max-w-3/5">
       <div className="mb-4">
@@ -26,7 +39,7 @@ const AdminCard: React.FC<AdminCardProps> = ({ data, onToggleActive }) => {
         <p className="font-semibold">{data.name}</p>
         <button
           className="w-5 h-5 rounded-full flex items-center justify-center"
-          onClick={() => onToggleActive(data.isActive)}
+          onClick={onToggleActive}
         >
           {data.isActive ? (
             <svg
@@ -94,7 +107,7 @@ const AdminCard: React.FC<AdminCardProps> = ({ data, onToggleActive }) => {
           Código de acesso:
           <span className="text-green-700">{data.accessCode}</span>
         </p>
-        <button>
+        <button onClick={handleCopy}>
           <svg
             width="61"
             height="20"
