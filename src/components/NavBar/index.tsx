@@ -60,7 +60,7 @@ export const NavBar: React.FC<NavBarProps> = ({ isAdmin }) => {
   const items = isAdmin ? navItemsAdmin : navItems;
 
   return (
-    <nav className="flex justify-between items-center px-4 bg-primary_300 w-full h-10">
+    <nav className="flex justify-between items-center px-4 bg-primary_300 w-full h-10 z-50">
       <div className="flex items-center justify-between w-full lg:w-auto h-full">
         <div className="lg:hidden">
           <button onClick={toggleMenu} className="text-gray_100">
@@ -106,7 +106,7 @@ export const NavBar: React.FC<NavBarProps> = ({ isAdmin }) => {
         </a>
       </div>
       {isMenuOpen && (
-        <div className="lg:hidden absolute top-0 left-0 right-0 w-1/2 h-full bg-primary_300 p-4 shadow-lg">
+        <div className="lg:hidden absolute top-0 left-0 right-0 w-1/2 h-full bg-primary_300 p-4 shadow-lg z-50">
           <button onClick={toggleMenu} className="text-gray_100 mb-4 flex items-center">
             <FaArrowLeft size={24} />
             <span className="ml-2">Voltar</span>

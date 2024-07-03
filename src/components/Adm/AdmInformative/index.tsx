@@ -21,7 +21,7 @@ const AdmInformative: React.FC<AdmInformativeProps> = ({
   onRemove
 }) => {
   return (
-    <div className="flex flex-col md:flex-row gap-2 p-4 border rounded-lg shadow-md bg-white w-full">
+    <div className="flex flex-col md:flex-row gap-2 p-4 border rounded-lg shadow-lg bg-white w-full">
       <img
         src={data.imageUrl}
         alt={`Imagem de ${data.topic}`}

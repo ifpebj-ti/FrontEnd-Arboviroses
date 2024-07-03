@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 import { NavBar } from '@/components/NavBar';
 import DropdownButton from '@/components/DropdownButton';
-import ActionButton from '@/components/ActionButton';
 import AdminCard from '@/components/Adm/AdminCard';
 import ContentRenderer from '@/components/Adm/ContentRenderer';
 import ModalForm from '@/components/Adm/InformativeForms';
 import AdminModalForm from '@/components/Adm/AdmsForms';
+import Forms from '@/components/Adm/Forms';
 
 interface DadosMenu {
   Menu: string[];
@@ -185,7 +185,6 @@ const AdminPage: React.FC = () => {
 
   const handleModalSubmit = (data: any) => {
     if (editingItem) {
-      // Update the existing item
       const updatedItem = { ...editingItem, ...data };
       if (selectedMenu === 'Noticias') {
         setNoticias((prevNoticias) =>
@@ -213,10 +212,9 @@ const AdminPage: React.FC = () => {
         );
       }
     } else {
-      // Create a new item
       const newInformative = {
-        id: Date.now(), // Utilizando timestamp como ID temporário
-        imageUrl: 'https://via.placeholder.com/300', // Você pode mudar isso para uma URL real
+        id: Date.now(),
+        imageUrl: 'https://via.placeholder.com/300',
         topic: selectedMenu,
         ...data
       };
@@ -229,7 +227,7 @@ const AdminPage: React.FC = () => {
         setVideos((prevVideos) => [...prevVideos, newInformative]);
       } else {
         const newAdmin = {
-          id: Date.now(), // Utilizando timestamp como ID temporário
+          id: Date.now(),
           ...data
         };
         setAdmins((prevAdmins) => [...prevAdmins, newAdmin]);
@@ -241,8 +239,10 @@ const AdminPage: React.FC = () => {
 
   return (
     <main className="bg-secondary_100 h-screen relative">
-      <NavBar isAdmin={true} />
-      <section className="flex flex-col items-center gap-10 md:gap-14 px-5 md:px-40">
+      <nav className="z-50">
+        <NavBar isAdmin={true} />
+      </nav>
+      <section className="flex flex-col items-center gap-10 md:gap-14 px-5 md:px-40 z-40">
         <h1 className="md:highlighted-text section-title text-primary_300 p-5">
           Administração
         </h1>
@@ -254,24 +254,10 @@ const AdminPage: React.FC = () => {
               onChange={handleMenuChange}
             />
           ))}
-          <div className="hidden md:flex flex-col items-center space-y-2">
-            <h2 className="text-sm font-semibold text-green-700">
-              Informativos
-            </h2>
-            <ActionButton
-              label="+ Novo informativo"
-              onClick={handleInformativoClick}
-            />
-          </div>
-          <div className="hidden md:flex flex-col items-center space-y-2">
-            <h2 className="text-sm font-semibold text-green-700">
-              Administradores
-            </h2>
-            <ActionButton
-              label="+ Novo administrador"
-              onClick={handleAdministradorClick}
-            />
-          </div>
+          <Forms
+            handleInformativoClick={handleInformativoClick}
+            handleAdministradorClick={handleAdministradorClick}
+          />
         </div>
       </section>
       <section className="flex flex-col xl:flex-row justify-between w-full py-5 md:px-40 bg-gray_100">
@@ -285,7 +271,7 @@ const AdminPage: React.FC = () => {
             onRemove={handleRemoveInformative}
           />
         </div>
-        <div className="hidden xl:flex flex-col items-center space-y-2 w-96">
+        <div className="flex flex-col items-center space-y-2 w-full py-5 xl:w-96 xl:mt-0">
           <article className="relative w-full">
             <div className="space-y-4">
               {admins.map((admin) => (

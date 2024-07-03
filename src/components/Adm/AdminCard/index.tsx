@@ -16,7 +16,12 @@ interface AdminCardProps {
 
 const AdminCard: React.FC<AdminCardProps> = ({ data, onToggleActive }) => {
   return (
-    <div className="flex flex-col p-4 border rounded-lg shadow-md bg-white relative max-w-[563px] max-h-[157px]">
+    <div className="flex flex-col p-4 border rounded-lg shadow-md bg-white relative xl:max-w-3/5">
+      <div className="mb-4">
+        <h3 className="text-lg font-semibold text-green-700">
+          Administradores
+        </h3>
+      </div>
       <div className="flex justify-between items-center">
         <p className="font-semibold">{data.name}</p>
         <button

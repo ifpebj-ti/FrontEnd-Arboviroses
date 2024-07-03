@@ -5,7 +5,10 @@ interface DropdownButtonProps {
   onChange: (option: string) => void;
 }
 
-const DropdownButton: React.FC<DropdownButtonProps> = ({ options, onChange }) => {
+const DropdownButton: React.FC<DropdownButtonProps> = ({
+  options,
+  onChange
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(options[0]);
 
@@ -20,10 +23,10 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({ options, onChange }) =>
   };
 
   return (
-    <div className="relative inline-block text-left">
+    <div className="relative text-left">
       <button
         onClick={toggleDropdown}
-        className="flex items-center justify-between w-24 h-8 px-2.5 py-1.5 border border-green-500 text-green-500 rounded-lg hover:bg-green-500 hover:text-white transition-colors"
+        className="flex items-center justify-between w-30 h-8 px-2.5 py-1.5 border border-green-500 text-green-500 rounded-lg hover:bg-green-500 hover:text-white transition-colors"
         style={{ gap: '5px' }}
       >
         {selectedOption}

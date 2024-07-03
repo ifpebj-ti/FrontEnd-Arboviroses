@@ -14,13 +14,14 @@ interface AdminModalFormProps {
   title: string;
   onClose: () => void;
   onSubmit: (data: AdminData) => void;
+  initialData?: AdminData; // To edit the admin data
 }
 
 const AdminModalForm: React.FC<AdminModalFormProps> = ({
   title,
   onClose,
   onSubmit,
-
+  initialData // To edit the admin data
 }) => {
   const [formData, setFormData] = useState<AdminData>({
     id: 0,
@@ -30,6 +31,12 @@ const AdminModalForm: React.FC<AdminModalFormProps> = ({
     isActive: false,
     isAdmin: false
   });
+
+  useEffect(() => {
+    if (initialData) {
+      setFormData(initialData);
+    }
+  }, [initialData]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -47,7 +54,7 @@ const AdminModalForm: React.FC<AdminModalFormProps> = ({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white p-8 rounded shadow-lg w-1/3">
+      <div className="bg-white p-8 rounded shadow-lg w-full max-w-md mx-4 md:w-1/3">
         <h2 className="text-xl mb-4">{title}</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
