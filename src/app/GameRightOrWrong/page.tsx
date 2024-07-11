@@ -11,7 +11,7 @@ interface Question {
   imageSrc?: string;
 }
 
-export default function GameRightOrWrong() {
+const Quiz: React.FC = () => {
   const [shuffledQuestions, setShuffledQuestions] = useState<Question[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showTutorial, setShowTutorial] = useState(false);
@@ -157,4 +157,6 @@ export default function GameRightOrWrong() {
       />
     </main>
   );
-}
+};
+
+export default Quiz;

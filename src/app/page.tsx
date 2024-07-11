@@ -6,6 +6,8 @@ import CardInformative from '@/components/Home/CardInformative/page';
 import CardVideos from '@/components/Home/CardVideos/page';
 import Loading from '@/components/Loading/page';
 import { NavBar } from '@/components/NavBar';
+import Footer from '@/components/Footer/footer';
+
 
 interface InformativeData {
   imageUrl: string;
@@ -139,6 +141,7 @@ export default function Home() {
           </div>
         )}
       </section>
+      <Footer />
     </main>
   );
 }
