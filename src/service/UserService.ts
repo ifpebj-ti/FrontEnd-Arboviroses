@@ -10,11 +10,11 @@ export async function Login(email: string, password: string) {
       password
     })
     .then((response) => {
-      // console.log(response);
+      console.log(response);
       return response;
     })
     .catch((error) => {
-      // console.log(error);
+      console.log(error);
       return error.response;
     });
 

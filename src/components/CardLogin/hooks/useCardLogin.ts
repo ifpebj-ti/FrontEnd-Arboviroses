@@ -24,7 +24,7 @@ export function useCardLogin() {
   const submitForm: SubmitHandler<z.infer<typeof mySchema>> = async (data) => {
     const res = await Login(data.email, data.password);
 
-    console.log(res);
+    console.log('Respota', res);
 
     if (res.status === 404) {
       toast.error('Usuário não encontrado');
