@@ -1,21 +1,22 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 
-import CardArticles from '@/components/Home/CardArticle/page';
-import CardInformative from '@/components/Home/CardInformative/page';
-import CardVideos from '@/components/Home/CardVideos/page';
-import Loading from '@/components/Loading/page';
-import { NavBar } from '@/components/NavBar';
-import Footer from '@/components/Footer/footer';
+import {
+  NavBar,
+  CardInformative,
+  CardArticles,
+  CardVideos,
+  Loading,
+  Footer
+} from '@/components';
 
-
-interface InformativeData {
+type InformativeData = {
   imageUrl: string;
   topic: string;
   title: string;
   linkTitle: string;
   linkUrl: string;
-}
+};
 
 const fetchInformative = async (): Promise<InformativeData[]> => {
   return [
@@ -82,7 +83,7 @@ export default function Home() {
 
   return (
     <main ref={mainRef} className="bg-secondary_100 h-screen relative">
-      <NavBar isAdmin={true}/>
+      <NavBar isAdmin={true} />
       <section className="flex flex-col items-center gap-10 md:gap-14 px-5 md:px-40">
         {/* Navegação mobile */}
         <div className=" md:hidden w-full -ml-10">

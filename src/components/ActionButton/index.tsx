@@ -1,11 +1,9 @@
-import React from 'react';
-
-interface ActionButtonProps {
+type ActionButtonProps = {
   label: string;
   onClick: () => void;
-}
+};
 
-const ActionButton: React.FC<ActionButtonProps> = ({ label, onClick }) => {
+export function ActionButton({ label, onClick }: ActionButtonProps) {
   return (
     <button
       onClick={onClick}
@@ -14,6 +12,6 @@ const ActionButton: React.FC<ActionButtonProps> = ({ label, onClick }) => {
       {label}
     </button>
   );
-};
+}
 
 export default ActionButton;

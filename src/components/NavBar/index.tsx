@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { FaArrowLeft, FaBars } from "react-icons/fa";
+'use client';
+import { useState } from 'react';
+import { FaArrowLeft, FaBars } from 'react-icons/fa';
 
 interface NavItem {
   label: string;
@@ -10,29 +11,33 @@ interface NavItem {
 const navItems: NavItem[] = [
   { label: 'Home', href: '/' },
   {
-    label: 'Jogos', href: '/', subItems: [
-      { label: 'Jogo da Memória', href: '/about/new' },
-      { label: 'Certo ou Errado', href: '/about/edit' },
+    label: 'Jogos',
+    href: '/#',
+    subItems: [
+      { label: 'Jogo da Memória', href: '/GameMemory' },
+      { label: 'Certo ou Errado', href: '/GameRightOrWrong' }
     ]
-  },
+  }
 ];
 
 const navItemsAdmin: NavItem[] = [
   { label: 'Home', href: '/' },
   {
-    label: 'Jogos', href: '/about', subItems: [
-      { label: 'Jogo da Memória', href: '/about/new' },
-      { label: 'Certo ou Errado', href: '/about/edit' },
+    label: 'Jogos',
+    href: '/#',
+    subItems: [
+      { label: 'Jogo da Memória', href: '/GameMemory' },
+      { label: 'Certo ou Errado', href: '/GameRightOrWrong' }
     ]
   },
-  { label: 'Admin', href: '/admin' },
-]
+  { label: 'Admin', href: '/adminPage' }
+];
 
-interface NavBarProps {
+type NavBarProps = {
   isAdmin: boolean;
-}
+};
 
-export const NavBar: React.FC<NavBarProps> = ({ isAdmin }) => {
+export function NavBar({ isAdmin }: NavBarProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openSubMenu, setOpenSubMenu] = useState<number | null>(null);
@@ -73,10 +78,13 @@ export const NavBar: React.FC<NavBarProps> = ({ isAdmin }) => {
               <li
                 key={index}
                 className="relative h-full"
-                onMouseEnter={item.subItems ? handleMouseEnter : () => { }}
-                onMouseLeave={item.subItems ? handleMouseLeave : () => { }}
+                onMouseEnter={item.subItems ? handleMouseEnter : () => {}}
+                onMouseLeave={item.subItems ? handleMouseLeave : () => {}}
               >
-                <a href={item.href} className="px-4 flex items-center justify-between h-full w-full hover:bg-primary_400">
+                <a
+                  href={item.href}
+                  className="px-4 flex items-center justify-between h-full w-full hover:bg-primary_400"
+                >
                   {item.label}
                   {item.subItems && <span className="ml-2">&#x25BE;</span>}
                 </a>
@@ -88,7 +96,10 @@ export const NavBar: React.FC<NavBarProps> = ({ isAdmin }) => {
                   >
                     {item.subItems.map((subItem, subIndex) => (
                       <li key={subIndex}>
-                        <a href={subItem.href} className="block px-4 py-2 text-black hover:bg-gray-200">
+                        <a
+                          href={subItem.href}
+                          className="block px-4 py-2 text-black hover:bg-gray-200"
+                        >
                           {subItem.label}
                         </a>
                       </li>
@@ -101,20 +112,29 @@ export const NavBar: React.FC<NavBarProps> = ({ isAdmin }) => {
         </div>
       </div>
       <div className="flex h-full justify-center items-center gap-x-2">
-        <a href="#" className="text-2l text-gray_100  flex items-center justify-center h-full w-full hover:bg-primary_400 px-4">
+        <a
+          href="/login"
+          className="text-2l text-gray_100  flex items-center justify-center h-full w-full hover:bg-primary_400 px-4"
+        >
           Entrar
         </a>
       </div>
       {isMenuOpen && (
         <div className="lg:hidden absolute top-0 left-0 right-0 w-1/2 h-full bg-primary_300 p-4 shadow-lg z-50">
-          <button onClick={toggleMenu} className="text-gray_100 mb-4 flex items-center">
+          <button
+            onClick={toggleMenu}
+            className="text-gray_100 mb-4 flex items-center"
+          >
             <FaArrowLeft size={24} />
             <span className="ml-2">Voltar</span>
           </button>
           <ul className="flex flex-col text-gray_100 gap-4">
             {items.map((item, index) => (
               <li key={index} className="relative">
-                <button className="block py-2 w-full text-left justify-between items-center" onClick={() => toggleSubMenu(index)}>
+                <button
+                  className="block py-2 w-full text-left justify-between items-center"
+                  onClick={() => toggleSubMenu(index)}
+                >
                   {item.label}
                   {item.subItems && <span className="ml-2">&#x25BE;</span>}
                 </button>
@@ -122,7 +142,11 @@ export const NavBar: React.FC<NavBarProps> = ({ isAdmin }) => {
                   <ul className="pl-4">
                     {item.subItems.map((subItem, subIndex) => (
                       <li key={subIndex}>
-                        <a href={subItem.href} className="block py-2" onClick={toggleMenu}>
+                        <a
+                          href={subItem.href}
+                          className="block py-2"
+                          onClick={toggleMenu}
+                        >
                           {subItem.label}
                         </a>
                       </li>
@@ -136,4 +160,4 @@ export const NavBar: React.FC<NavBarProps> = ({ isAdmin }) => {
       )}
     </nav>
   );
-};
+}

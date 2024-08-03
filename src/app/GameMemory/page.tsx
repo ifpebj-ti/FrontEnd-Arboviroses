@@ -1,12 +1,10 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { FiHelpCircle } from 'react-icons/fi';
 
-import Card from '@/components/GameMemory/Card';
-import { generateCards } from '@/components/GameMemory/Values';
-import TutorialModal from '@/components/Tutorial/tutorialModal';
+import { generateCards, Card, TutorialModal } from '@/components';
 
-const GameMemory: React.FC = () => {
+export default function GameMemory() {
   const [cards, setCards] = useState(generateCards());
   const [firstCard, setFirstCard] = useState<number | null>(null);
   const [secondCard, setSecondCard] = useState<number | null>(null);
@@ -142,6 +140,4 @@ const GameMemory: React.FC = () => {
       />
     </main>
   );
-};
-
-export default GameMemory;
+}

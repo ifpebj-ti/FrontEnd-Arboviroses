@@ -1,1 +1,17 @@
 export { CardLogin } from './CardLogin';
+export { ActionButton } from './ActionButton';
+export { CardNewPassword } from './CardNewPassword';
+export { CardRecoverPassword } from './CardRecoverPassword';
+export { DropdownButton } from './DropdownButton';
+export { Footer } from './Footer';
+export { Card } from './GameMemory/Card';
+export { values, generateCards } from './GameMemory/Values';
+export { questions } from './GameRightOrWrong/questions';
+export { Article } from './Home/CardArticle/Article';
+export { CardArticles } from './Home/CardArticle';
+export { CardInformative } from './Home/CardInformative';
+export { Video } from './Home/CardVideos/Video';
+export { CardVideos } from './Home/CardVideos';
+export { Loading } from './Loading';
+export { NavBar } from './NavBar';
+export { TutorialModal } from './Tutorial';

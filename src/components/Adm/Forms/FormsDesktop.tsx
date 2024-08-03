@@ -1,15 +1,14 @@
-import React from 'react';
 import ActionButton from '@/components/ActionButton';
 
-interface FormsDesktopProps {
+type FormsDesktopProps = {
   handleInformativoClick: () => void;
   handleAdministradorClick: () => void;
-}
+};
 
-const FormsDesktop: React.FC<FormsDesktopProps> = ({
+export function FormsDesktop({
   handleInformativoClick,
   handleAdministradorClick
-}) => {
+}: FormsDesktopProps) {
   return (
     <div className="flex justify-between space-x-5">
       <div className="flex flex-col items-center space-y-2">
@@ -30,6 +29,4 @@ const FormsDesktop: React.FC<FormsDesktopProps> = ({
       </div>
     </div>
   );
-};
-
-export default FormsDesktop;
+}

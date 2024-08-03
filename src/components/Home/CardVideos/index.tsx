@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 import { FiChevronUp } from 'react-icons/fi';
 
-import Video from './Video/page';
+import { Video } from './Video';
 
 interface VideoData {
   title: string;
@@ -11,7 +11,7 @@ interface VideoData {
   thumbnailUrl: string;
 }
 
-const fetchVideos = async (): Promise<VideoData[]> => {
+async function fetchVideos(): Promise<VideoData[]> {
   return [
     {
       title: 'Vídeo 1',
@@ -39,9 +39,9 @@ const fetchVideos = async (): Promise<VideoData[]> => {
       thumbnailUrl: 'https://via.placeholder.com/300'
     }
   ];
-};
+}
 
-const CardVideos: React.FC = () => {
+export function CardVideos() {
   const [videos, setVideos] = useState<VideoData[]>([]);
   const [visibleVideos, setVisibleVideos] = useState<number>(3);
 
@@ -113,6 +113,4 @@ const CardVideos: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default CardVideos;
+}

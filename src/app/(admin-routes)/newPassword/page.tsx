@@ -1,4 +1,4 @@
-import { CardNewPassword } from '@/components/CardNewPassword';
+import { CardNewPassword } from '@/components';
 
 export default function NewPassword() {
   return (

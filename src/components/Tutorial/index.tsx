@@ -1,17 +1,16 @@
-import React from 'react';
 import { FiX } from 'react-icons/fi';
 
-interface TutorialModalProps {
+type TutorialModalProps = {
   show: boolean;
   onClose: () => void;
   instructions: string[];
-}
+};
 
-const TutorialModal: React.FC<TutorialModalProps> = ({
+export function TutorialModal({
   show,
   onClose,
   instructions
-}) => {
+}: TutorialModalProps) {
   if (!show) {
     return null;
   }
@@ -35,6 +34,4 @@ const TutorialModal: React.FC<TutorialModalProps> = ({
       </div>
     </div>
   );
-};
-
-export default TutorialModal;
+}

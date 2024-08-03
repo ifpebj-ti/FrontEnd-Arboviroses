@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface AdminData {
   id: number;
   name: string;
@@ -9,12 +7,12 @@ interface AdminData {
   isAdmin: boolean;
 }
 
-interface AdminCardProps {
+type AdminCardProps = {
   data: AdminData;
   onToggleActive: () => void;
-}
+};
 
-const AdminCard: React.FC<AdminCardProps> = ({ data, onToggleActive }) => {
+export function AdminCard({ data, onToggleActive }: AdminCardProps) {
   const handleCopy = () => {
     const adminInfo = `
       Nome: ${data.name}
@@ -150,6 +148,4 @@ const AdminCard: React.FC<AdminCardProps> = ({ data, onToggleActive }) => {
       </div>
     </div>
   );
-};
-
-export default AdminCard;
+}

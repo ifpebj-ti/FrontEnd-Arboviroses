@@ -13,7 +13,7 @@ export const values = [
   '/GameMemory/card12.png'
 ];
 
-export const generateCards = () => {
+export function generateCards() {
   const cards = [...values, ...values].sort(() => Math.random() - 0.5);
   return cards.map((value, index) => ({
     id: index,
@@ -21,4 +21,4 @@ export const generateCards = () => {
     isFlipped: false,
     isMatched: false
   }));
-};
+}

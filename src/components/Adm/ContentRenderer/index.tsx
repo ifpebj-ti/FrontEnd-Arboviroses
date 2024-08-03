@@ -1,5 +1,6 @@
 import React from 'react';
-import AdmInformative from '@/components/Adm/AdmInformative';
+
+import { AdmInformative } from '../AdmInformative';
 
 interface InformativeData {
   id: number;
@@ -28,14 +29,14 @@ interface ContentRendererProps {
   onRemove: (id: number) => void;
 }
 
-const ContentRenderer: React.FC<ContentRendererProps> = ({
+export function ContentRenderer({
   selectedMenu,
   informatives,
   articles,
   videos,
   onEdit,
   onRemove
-}) => {
+}: ContentRendererProps) {
   if (selectedMenu === 'Noticias') {
     return (
       <div className="grid grid-cols-1 gap-4">
@@ -78,6 +79,4 @@ const ContentRenderer: React.FC<ContentRendererProps> = ({
   } else {
     return <p>Nenhum item encontrado</p>;
   }
-};
-
-export default ContentRenderer;
+}

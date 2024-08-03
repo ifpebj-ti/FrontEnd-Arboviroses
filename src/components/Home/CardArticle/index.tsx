@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+'use client';
+import { useState, useEffect } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 import { FiChevronUp } from 'react-icons/fi';
 
-import Article from './Article/page';
+import { Article } from './Article';
 
 interface ArticleData {
   title: string;
@@ -10,7 +11,7 @@ interface ArticleData {
   thumbnailUrl: string;
 }
 
-const fetchArticles = async (): Promise<ArticleData[]> => {
+async function fetchArticles(): Promise<ArticleData[]> {
   return [
     {
       title: 'Artigo muito muito legal 1',
@@ -38,9 +39,9 @@ const fetchArticles = async (): Promise<ArticleData[]> => {
       thumbnailUrl: 'https://via.placeholder.com/300'
     }
   ];
-};
+}
 
-const CardArticles: React.FC = () => {
+export function CardArticles() {
   const [articles, setArticles] = useState<ArticleData[]>([]);
   const [visibleArticles, setVisibleArticles] = useState<number>(3);
 
@@ -114,6 +115,4 @@ const CardArticles: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default CardArticles;
+}

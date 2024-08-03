@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface InformativeData {
   id: number;
   imageUrl: string;
@@ -9,17 +7,17 @@ interface InformativeData {
   linkUrl: string;
 }
 
-interface AdmInformativeProps {
+type AdmInformativeProps = {
   data: InformativeData;
   onEdit: (id: number) => void;
   onRemove: (id: number) => void;
-}
+};
 
-const AdmInformative: React.FC<AdmInformativeProps> = ({
+export function AdmInformative({
   data,
   onEdit,
   onRemove
-}) => {
+}: AdmInformativeProps) {
   return (
     <div className="flex flex-col md:flex-row gap-2 p-4 border rounded-lg shadow-lg bg-white w-full">
       <img
@@ -119,6 +117,4 @@ const AdmInformative: React.FC<AdmInformativeProps> = ({
       </div>
     </div>
   );
-};
-
-export default AdmInformative;
+}

@@ -1,11 +1,9 @@
-import React from 'react';
-
-interface StatusButtonProps {
+type StatusButtonProps = {
   isActive: boolean;
   onToggle: () => void;
-}
+};
 
-const StatusButton: React.FC<StatusButtonProps> = ({ isActive, onToggle }) => {
+export function StatusButton({ isActive, onToggle }: StatusButtonProps) {
   const strokeColor = isActive ? 'primary_200' : 'danger_300';
   const fillColor = isActive ? 'primary_200' : 'danger_300';
 
@@ -42,6 +40,4 @@ const StatusButton: React.FC<StatusButtonProps> = ({ isActive, onToggle }) => {
       </svg>
     </button>
   );
-};
-
-export default StatusButton;
+}

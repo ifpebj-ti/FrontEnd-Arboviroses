@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState, useEffect } from 'react';
 
-interface ModalFormProps {
+type ModalFormProps = {
   title: string;
   onClose: () => void;
   onSubmit: (data: any) => void;
   initialData?: any;
-}
+};
 
-const ModalForm: React.FC<ModalFormProps> = ({
+export function ModalForm({
   title,
   onClose,
   onSubmit,
   initialData
-}) => {
+}: ModalFormProps) {
   const [formData, setFormData] = useState({ title: '', content: '' });
 
   useEffect(() => {
@@ -81,6 +82,4 @@ const ModalForm: React.FC<ModalFormProps> = ({
       </div>
     </div>
   );
-};
-
-export default ModalForm;
+}

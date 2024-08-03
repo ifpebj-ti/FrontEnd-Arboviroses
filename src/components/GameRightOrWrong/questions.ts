@@ -1,10 +1,10 @@
-export interface Question {
+export type Question = {
   question: string;
-  answer: boolean;
   imageSrc: string;
-}
+  answer: boolean;
+};
 
-const questions: Question[] = [
+export const questions: Question[] = [
   {
     question:
       'É importante não deixar água parada em casa para evitar o mosquito da dengue?',
@@ -64,5 +64,3 @@ const questions: Question[] = [
     answer: true
   }
 ];
-
-export default questions;

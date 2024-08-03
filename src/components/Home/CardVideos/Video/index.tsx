@@ -1,14 +1,12 @@
-import React from 'react';
-
-interface VideoProps {
+type VideoProps = {
   video: {
     title: string;
     url: string;
     thumbnailUrl: string;
   };
-}
+};
 
-const Video: React.FC<VideoProps> = ({ video }) => {
+export function Video({ video }: VideoProps) {
   return (
     <div className="flex flex-col items-center md:py-2 w-full">
       <div className="hidden md:block w-full h-0.5 bg-gray_200 mb-3"></div>
@@ -25,6 +23,4 @@ const Video: React.FC<VideoProps> = ({ video }) => {
       </a>
     </div>
   );
-};
-
-export default Video;
+}

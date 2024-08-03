@@ -1,12 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
-import React, { useState } from 'react';
-import { NavBar } from '@/components/NavBar';
-import DropdownButton from '@/components/DropdownButton';
-import AdminCard from '@/components/Adm/AdminCard';
-import ContentRenderer from '@/components/Adm/ContentRenderer';
-import ModalForm from '@/components/Adm/InformativeForms';
-import AdminModalForm from '@/components/Adm/AdmsForms';
+import { useState } from 'react';
+
+import { NavBar, DropdownButton } from '@/components';
+import { AdminCard } from '@/components/Adm/AdminCard';
+import { AdminModalForm } from '@/components/Adm/AdmsForms';
+import { ContentRenderer } from '@/components/Adm/ContentRenderer';
 import Forms from '@/components/Adm/Forms';
+import { ModalForm } from '@/components/Adm/InformativeForms';
 
 interface DadosMenu {
   Menu: string[];
@@ -121,7 +122,7 @@ const Admins: AdminData[] = [
   }
 ];
 
-const AdminPage: React.FC = () => {
+export default function AdminPage() {
   const [selectedMenu, setSelectedMenu] = useState<string>(dados[0].Menu[0]);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [modalTitle, setModalTitle] = useState<string>('');
@@ -310,6 +311,4 @@ const AdminPage: React.FC = () => {
         ))}
     </main>
   );
-};
-
-export default AdminPage;
+}

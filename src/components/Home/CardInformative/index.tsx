@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface InformativeData {
   imageUrl: string;
   topic: string;
@@ -8,11 +6,11 @@ interface InformativeData {
   linkUrl: string;
 }
 
-interface CardInformativeProps {
+type CardInformativeProps = {
   data: InformativeData;
-}
+};
 
-const CardInformative: React.FC<CardInformativeProps> = ({ data }) => {
+export function CardInformative({ data }: CardInformativeProps) {
   return (
     <div className="flex flex-col md:flex-row gap-2">
       <img
@@ -29,6 +27,4 @@ const CardInformative: React.FC<CardInformativeProps> = ({ data }) => {
       </div>
     </div>
   );
-};
-
-export default CardInformative;
+}

@@ -1,22 +1,23 @@
 import React from 'react';
-import DropdownButton from '@/components/DropdownButton';
 
-interface FormsMobileProps {
+import { DropdownButton } from '@/components';
+
+type FormsMobileProps = {
   handleInformativoClick: () => void;
   handleAdministradorClick: () => void;
-}
+};
 
-const FormsMobile: React.FC<FormsMobileProps> = ({
+export function FormsMobile({
   handleInformativoClick,
-  handleAdministradorClick,
-}) => {
+  handleAdministradorClick
+}: FormsMobileProps) {
   const options = [
     { label: 'Informativos', onClick: handleInformativoClick },
-    { label: 'Administradores', onClick: handleAdministradorClick },
+    { label: 'Administradores', onClick: handleAdministradorClick }
   ];
 
   const handleOptionClick = (option: string) => {
-    const selectedOption = options.find(opt => opt.label === option);
+    const selectedOption = options.find((opt) => opt.label === option);
     if (selectedOption) {
       selectedOption.onClick();
     }
@@ -25,10 +26,8 @@ const FormsMobile: React.FC<FormsMobileProps> = ({
   return (
     <DropdownButton
       label="Menu"
-      options={options.map(option => option.label)}
+      options={options.map((option) => option.label)}
       onChange={handleOptionClick}
     />
   );
-};
-
-export default FormsMobile;
+}

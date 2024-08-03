@@ -1,26 +1,13 @@
-import React, { useState } from 'react';
+import { useDropDownButton } from './hooks/useDropDownButton';
 
-interface DropdownButtonProps {
+type DropdownButtonProps = {
   options: string[];
   onChange: (option: string) => void;
-}
+};
 
-const DropdownButton: React.FC<DropdownButtonProps> = ({
-  options,
-  onChange
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(options[0]);
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const handleOptionClick = (option: string) => {
-    setSelectedOption(option);
-    setIsOpen(false);
-    onChange(option);
-  };
+export function DropdownButton({ options, onChange }: DropdownButtonProps) {
+  const { isOpen, selectedOption, toggleDropdown, handleOptionClick } =
+    useDropDownButton(options);
 
   return (
     <div className="relative text-left">
@@ -51,7 +38,7 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
             {options.map((option, index) => (
               <button
                 key={index}
-                onClick={() => handleOptionClick(option)}
+                onClick={() => handleOptionClick(option, onChange)}
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
               >
                 {option}
@@ -62,6 +49,4 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
       )}
     </div>
   );
-};
-
-export default DropdownButton;
+}

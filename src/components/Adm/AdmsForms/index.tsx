@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 interface AdminData {
   id: number;
@@ -10,19 +10,19 @@ interface AdminData {
   isAdmin: boolean;
 }
 
-interface AdminModalFormProps {
+type AdminModalFormProps = {
   title: string;
   onClose: () => void;
   onSubmit: (data: AdminData) => void;
   initialData?: AdminData;
-}
+};
 
-const AdminModalForm: React.FC<AdminModalFormProps> = ({
+export function AdminModalForm({
   title,
   onClose,
   onSubmit,
   initialData
-}) => {
+}: AdminModalFormProps) {
   const [formData, setFormData] = useState<AdminData>({
     id: 0,
     name: '',
@@ -127,6 +127,4 @@ const AdminModalForm: React.FC<AdminModalFormProps> = ({
       </div>
     </div>
   );
-};
-
-export default AdminModalForm;
+}

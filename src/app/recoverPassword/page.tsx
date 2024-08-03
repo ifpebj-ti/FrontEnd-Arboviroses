@@ -1,4 +1,4 @@
-import { CardRecoverPassword } from '@/components/CardRecoverPassword';
+import { CardRecoverPassword } from '@/components';
 
 export default function recoverPassword() {
   return (

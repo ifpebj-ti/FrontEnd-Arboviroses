@@ -1,17 +1,16 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { FiCheck, FiX, FiHelpCircle } from 'react-icons/fi';
 
-import questions from '@/components/GameRightOrWrong/questions';
-import TutorialModal from '@/components/Tutorial/tutorialModal';
+import { questions, TutorialModal } from '@/components';
 
-interface Question {
+type Question = {
   question: string;
   answer: boolean;
   imageSrc?: string;
-}
+};
 
-const Quiz: React.FC = () => {
+export default function Quiz() {
   const [shuffledQuestions, setShuffledQuestions] = useState<Question[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showTutorial, setShowTutorial] = useState(false);
@@ -157,6 +156,4 @@ const Quiz: React.FC = () => {
       />
     </main>
   );
-};
-
-export default Quiz;
+}

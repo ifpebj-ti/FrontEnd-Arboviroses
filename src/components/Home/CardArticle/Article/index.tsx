@@ -1,14 +1,12 @@
-import React from 'react';
-
-interface ArticleProps {
+type ArticleProps = {
   article: {
     title: string;
     url: string;
     thumbnailUrl: string;
   };
-}
+};
 
-const Article: React.FC<ArticleProps> = ({ article }) => {
+export function Article({ article }: ArticleProps) {
   return (
     <div className="flex flex-col md:py-2 w-full">
       <div className="hidden md:block w-full h-0.5 bg-gray_200 mb-3"></div>
@@ -27,6 +25,4 @@ const Article: React.FC<ArticleProps> = ({ article }) => {
       </div>
     </div>
   );
-};
-
-export default Article;
+}
