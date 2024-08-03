@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 // criar arquivo .env e adicionar a variável de ambiente com a url da api
 
 export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL
+  baseURL: 'http://localhost:5263/api'
 });
 
 // inteceptor padrão

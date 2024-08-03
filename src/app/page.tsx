@@ -1,73 +1,48 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 
+import Footer from '@/components/Footer/footer';
 import CardArticles from '@/components/Home/CardArticle/page';
 import CardInformative from '@/components/Home/CardInformative/page';
 import CardVideos from '@/components/Home/CardVideos/page';
 import Loading from '@/components/Loading/page';
 import { NavBar } from '@/components/NavBar';
-import Footer from '@/components/Footer/footer';
 
+import { getInfoHome } from '@/service/InfoHomeService';
 
-interface InformativeData {
-  imageUrl: string;
-  topic: string;
+export interface InfoHomeData {
+  id: string;
+  topic: null | string;
   title: string;
-  linkTitle: string;
-  linkUrl: string;
+  titleLink: null | string;
+  link: string;
+  typeInfo: 'New' | 'Video' | 'Article';
 }
 
-const fetchInformative = async (): Promise<InformativeData[]> => {
-  return [
-    {
-      imageUrl: 'https://via.placeholder.com/300',
-      topic: 'Tópico 1',
-      title: 'Algum título sensacionalista 1',
-      linkTitle: 'Algum título que seja um link 1',
-      linkUrl: 'https://example.com/link1'
-    },
-    {
-      imageUrl: 'https://via.placeholder.com/300',
-      topic: 'Tópico 2',
-      title: 'Algum título sensacionalista 2',
-      linkTitle: 'Algum título que seja um link 2',
-      linkUrl: 'https://example.com/link2'
-    },
-    {
-      imageUrl: 'https://via.placeholder.com/300',
-      topic: 'Tópico 3',
-      title: 'Algum título sensacionalista 3',
-      linkTitle: 'Algum título que seja um link 3',
-      linkUrl: 'https://example.com/link3'
-    },
-    {
-      imageUrl: 'https://via.placeholder.com/300',
-      topic: 'Tópico 4',
-      title: 'Algum título sensacionalista 4',
-      linkTitle: 'Algum título que seja um link 4',
-      linkUrl: 'https://example.com/link4'
-    }
-  ];
-};
-
 export default function Home() {
-  const [informativeData, setInformativeData] = useState<InformativeData[]>([]);
+  const [informativeData, setInformativeData] = useState<InfoHomeData[]>([]);
+  const [articles, setArticles] = useState<InfoHomeData[]>([]);
+  const [videos, setVideos] = useState<InfoHomeData[]>([]);
   const [activeTab, setActiveTab] = useState<'noticias' | 'artigos' | 'videos'>(
     'noticias'
   );
   const mainRef = useRef<HTMLMapElement>(null);
 
   useEffect(() => {
-    const getInformative = async () => {
+    const fetchData = async () => {
       try {
-        const data = await fetchInformative();
-        setInformativeData(data);
+        const response = await getInfoHome();
+        console.log('response', response);
+        const data: InfoHomeData[] = response.data;
+        setInformativeData(data.filter((item) => item.typeInfo === 'New'));
+        setArticles(data.filter((item) => item.typeInfo === 'Article'));
+        setVideos(data.filter((item) => item.typeInfo === 'Video'));
       } catch (error) {
-        console.error('Erro ao buscar informativos:', error);
+        console.error('Erro ao buscar dados:', error);
       }
     };
 
-    getInformative();
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -82,8 +57,8 @@ export default function Home() {
 
   return (
     <main ref={mainRef} className="bg-secondary_100 h-screen relative">
-      <NavBar isAdmin={true}/>
-      <section className="flex flex-col items-center gap-10 md:gap-14 px-5 md:px-40">
+      <NavBar isAdmin={true} />
+      <section className="flex flex-col items-center gap-10 md:gap-14 px-5 md:px-40 md:py-10 mb-10">
         {/* Navegação mobile */}
         <div className=" md:hidden w-full -ml-10">
           <button
@@ -116,8 +91,8 @@ export default function Home() {
                 <CardInformative data={data} />
               </React.Fragment>
             ))}
-          {activeTab === 'artigos' && <CardArticles />}
-          {activeTab === 'videos' && <CardVideos />}
+          {activeTab === 'artigos' && <CardArticles articles={articles} />}
+          {activeTab === 'videos' && <CardVideos videos={videos} />}
         </div>
         {/* Conteúdo desktop */}
         {informativeData.length === 0 ? (
@@ -135,8 +110,8 @@ export default function Home() {
               ))}
             </div>
             <div className="flex flex-col gap-5">
-              <CardVideos />
-              <CardArticles />
+              <CardVideos videos={videos} />
+              <CardArticles articles={articles} />
             </div>
           </div>
         )}

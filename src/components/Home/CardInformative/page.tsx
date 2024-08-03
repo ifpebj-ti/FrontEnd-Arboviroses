@@ -1,15 +1,16 @@
 import React from 'react';
 
-interface InformativeData {
-  imageUrl: string;
-  topic: string;
+export interface InfoHomeData {
+  id: string;
+  topic: null | string;
   title: string;
-  linkTitle: string;
-  linkUrl: string;
+  titleLink: null | string;
+  link: string;
+  typeInfo: 'New' | 'Video' | 'Article';
 }
 
 interface CardInformativeProps {
-  data: InformativeData;
+  data: InfoHomeData;
 }
 
 const CardInformative: React.FC<CardInformativeProps> = ({ data }) => {
@@ -23,8 +24,8 @@ const CardInformative: React.FC<CardInformativeProps> = ({ data }) => {
       <div className="flex flex-col items-start gap-2">
         <p className="caption text-secondary_200">{data.topic}</p>
         <h2 className="main-title text-primary_300">{data.title}</h2>
-        <a href={data.linkUrl} className="link paragraph text-primary_200">
-          {data.linkTitle}
+        <a href={data.link} className="link paragraph text-primary_200">
+          {data.title}
         </a>
       </div>
     </div>
