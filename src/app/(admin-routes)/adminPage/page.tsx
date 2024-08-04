@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { NavBar, DropdownButton, Footer } from '@/components';
 import { AdminCard } from '@/components/Adm/AdminCard';
@@ -8,6 +8,7 @@ import { AdminModalForm } from '@/components/Adm/AdmsForms';
 import { ContentRenderer } from '@/components/Adm/ContentRenderer';
 import Forms from '@/components/Adm/Forms';
 import { ModalForm } from '@/components/Adm/InformativeForms';
+import { getUsers } from '@/service/UserService';
 
 interface DadosMenu {
   Menu: string[];
@@ -35,7 +36,7 @@ interface AdminData {
   id: number;
   name: string;
   email: string;
-  accessCode: string;
+  uniqueCode: string;
   isActive: boolean;
   isAdmin: boolean;
 }
@@ -104,22 +105,22 @@ const initialVideos: VideoData[] = [
 ];
 
 const Admins: AdminData[] = [
-  {
-    id: 1,
-    name: 'Nome 1',
-    email: 'admin@gmail.com',
-    accessCode: '123456789',
-    isActive: true,
-    isAdmin: true
-  },
-  {
-    id: 2,
-    name: 'Nome 2',
-    email: 'teste@gmail.com',
-    accessCode: '987654321',
-    isActive: false,
-    isAdmin: false
-  }
+  // {
+  //   id: 1,
+  //   name: 'Nome 1',
+  //   email: 'admin@gmail.com',
+  //   accessCode: '123456789',
+  //   isActive: true,
+  //   isAdmin: true
+  // },
+  // {
+  //   id: 2,
+  //   name: 'Nome 2',
+  //   email: 'teste@gmail.com',
+  //   accessCode: '987654321',
+  //   isActive: false,
+  //   isAdmin: false
+  // }
 ];
 
 export default function AdminPage() {
@@ -135,6 +136,21 @@ export default function AdminPage() {
   const [videos, setVideos] = useState<VideoData[]>(initialVideos);
   const [admins, setAdmins] = useState<AdminData[]>(Admins);
   const [editingItem, setEditingItem] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getUsers();
+        const data: AdminData[] = Array.isArray(response) ? response : [];
+        setAdmins(data);
+        console.log(data);
+      } catch (error) {
+        console.error('Erro ao buscar dados:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleMenuChange = (menu: string) => {
     setSelectedMenu(menu);
