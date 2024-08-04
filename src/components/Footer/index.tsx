@@ -5,7 +5,7 @@ export function Footer() {
     <footer className="bg-primary_300 text-white py-5 text-center">
       <p className="mb-8 text-lg">Nos acompanhe!</p>
       <hr className="w-4/5 mx-auto border-t border-white mb-6" />
-      <div className="flex justify-center gap-12 mt-6">
+      <div className="flex justify-center gap-5 lg:gap-12 mt-6 text-sm">
         <div className="flex items-center">
           <FaPhone className="mr-2 text-2xl" />
           <a
