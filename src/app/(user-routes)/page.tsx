@@ -32,7 +32,6 @@ export default function Home() {
     const fetchData = async () => {
       try {
         const response = await getInfoHome();
-        console.log('response', response);
         const data: InfoHomeData[] = response.data;
         setInformativeData(data.filter((item) => item.typeInfo === 'New'));
         setArticles(data.filter((item) => item.typeInfo === 'Article'));
@@ -56,10 +55,10 @@ export default function Home() {
   }, [activeTab]);
 
   return (
-    <main ref={mainRef} className="bg-secondary_100 min-h-screen relative py-4">
+    <main ref={mainRef} className="bg-secondary_100 min-h-screen relative">
       <section className="flex flex-col items-center gap-10 md:gap-14 px-5 md:px-40 md:py-10 mb-10">
         {/* Navegação mobile */}
-        <div className="md:hidden w-full -ml-10">
+        <div className="lg:hidden w-full -ml-10">
           <button
             className={`rounded-b-xl px-5 py-3 paragraph ${activeTab === 'noticias' ? 'bg-primary_300 text-secondary_100' : 'bg-primary_100 text-secondary_200'}`}
             onClick={() => setActiveTab('noticias')}

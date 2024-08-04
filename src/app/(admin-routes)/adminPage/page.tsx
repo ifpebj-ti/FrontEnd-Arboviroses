@@ -123,6 +123,9 @@ const Admins: AdminData[] = [
 ];
 
 export default function AdminPage() {
+  const [activeTab, setActiveTab] = useState<
+    'informativos' | 'administradores'
+  >('informativos');
   const [selectedMenu, setSelectedMenu] = useState<string>(dados[0].Menu[0]);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [modalTitle, setModalTitle] = useState<string>('');
@@ -250,6 +253,21 @@ export default function AdminPage() {
     <main className="bg-secondary_100 h-screen relative">
       <nav className="z-50">
         <NavBar isAdmin={true} />
+        {/* Navegação mobile */}
+        <div className="lg:hidden w-full">
+          <button
+            className={`rounded-b-xl px-5 py-3 paragraph ${activeTab === 'informativos' ? 'bg-primary_300 text-secondary_100' : 'bg-primary_100 text-secondary_200'}`}
+            onClick={() => setActiveTab('informativos')}
+          >
+            Informativos
+          </button>
+          <button
+            className={`rounded-b-xl px-5 py-3 paragraph ${activeTab === 'administradores' ? 'bg-primary_300 text-secondary_100' : 'bg-primary_100 text-secondary_200'}`}
+            onClick={() => setActiveTab('administradores')}
+          >
+            Administradores
+          </button>
+        </div>
       </nav>
       <section className="flex flex-col items-center gap-10 md:gap-14 px-5 md:px-40 z-40">
         <h1 className="md:highlighted-text section-title text-primary_300 p-5">

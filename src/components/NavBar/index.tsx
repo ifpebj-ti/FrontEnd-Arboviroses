@@ -12,7 +12,7 @@ const navItems: NavItem[] = [
   { label: 'Home', href: '/' },
   {
     label: 'Jogos',
-    href: '/#',
+    href: '/',
     subItems: [
       { label: 'Jogo da Memória', href: '/GameMemory' },
       { label: 'Certo ou Errado', href: '/GameRightOrWrong' }
@@ -24,7 +24,7 @@ const navItemsAdmin: NavItem[] = [
   { label: 'Home', href: '/' },
   {
     label: 'Jogos',
-    href: '/#',
+    href: '/',
     subItems: [
       { label: 'Jogo da Memória', href: '/GameMemory' },
       { label: 'Certo ou Errado', href: '/GameRightOrWrong' }
@@ -65,8 +65,8 @@ export function NavBar({ isAdmin }: NavBarProps) {
   const items = isAdmin ? navItemsAdmin : navItems;
 
   return (
-    <nav className="flex justify-between items-center px-4 bg-primary_300 w-full h-10 z-50">
-      <div className="flex items-center justify-between w-full lg:w-auto h-full">
+    <nav className="flex justify-between items-center px-4 bg-primary_300 w-full h-[50px] z-50">
+      <div className="flex items-center h-full">
         <div className="lg:hidden">
           <button onClick={toggleMenu} className="text-gray_100">
             <FaBars size={24} />
@@ -90,7 +90,7 @@ export function NavBar({ isAdmin }: NavBarProps) {
                 </a>
                 {item.subItems && isDropdownOpen && (
                   <ul
-                    className="absolute top-full left-0 mt-2 p-2 bg-white shadow-lg w-48"
+                    className="absolute top-full left-0 mt-2 p-2 bg-white shadow-lg w-48 z-[100]"
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                   >
