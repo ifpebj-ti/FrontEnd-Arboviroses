@@ -1,13 +1,7 @@
-interface InformativeData {
-  imageUrl: string;
-  topic: string;
-  title: string;
-  linkTitle: string;
-  linkUrl: string;
-}
+import { InfoHomeData } from '@/app/(user-routes)/page';
 
 type CardInformativeProps = {
-  data: InformativeData;
+  data: InfoHomeData;
 };
 
 export function CardInformative({ data }: CardInformativeProps) {
@@ -21,8 +15,8 @@ export function CardInformative({ data }: CardInformativeProps) {
       <div className="flex flex-col items-start gap-2">
         <p className="caption text-secondary_200">{data.topic}</p>
         <h2 className="main-title text-primary_300">{data.title}</h2>
-        <a href={data.linkUrl} className="link paragraph text-primary_200">
-          {data.linkTitle}
+        <a href={data.link} className="link paragraph text-primary_200">
+          {data.title}
         </a>
       </div>
     </div>
