@@ -65,3 +65,16 @@ export async function RecoverPassword(
 
   return response;
 }
+
+export async function getUsers() {
+  const response = await api
+    .get('/User')
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+
+  return response;
+}
