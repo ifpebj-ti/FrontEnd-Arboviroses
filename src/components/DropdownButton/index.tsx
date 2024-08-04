@@ -1,3 +1,5 @@
+import { FiChevronDown } from 'react-icons/fi';
+
 import { useDropDownButton } from './hooks/useDropDownButton';
 
 type DropdownButtonProps = {
@@ -17,20 +19,7 @@ export function DropdownButton({ options, onChange }: DropdownButtonProps) {
         style={{ gap: '5px' }}
       >
         {selectedOption}
-        <svg
-          className="w-5 h-5"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M19 9l-7 7-7-7"
-          ></path>
-        </svg>
+        <FiChevronDown />
       </button>
       {isOpen && (
         <div className="absolute left-0 mt-2 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">

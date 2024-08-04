@@ -1,5 +1,4 @@
 'use client';
-import { useId, useState } from 'react';
 import { FiCopy } from 'react-icons/fi';
 
 interface AdminData {

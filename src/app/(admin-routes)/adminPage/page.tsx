@@ -123,9 +123,6 @@ const Admins: AdminData[] = [
 ];
 
 export default function AdminPage() {
-  const [activeTab, setActiveTab] = useState<
-    'informativos' | 'administradores'
-  >('informativos');
   const [selectedMenu, setSelectedMenu] = useState<string>(dados[0].Menu[0]);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [modalTitle, setModalTitle] = useState<string>('');
@@ -187,60 +184,6 @@ export default function AdminPage() {
     setShowModal(true);
   };
 
-  const handleModalSubmit = (data: any) => {
-    if (editingItem) {
-      const updatedItem = { ...editingItem, ...data };
-      if (selectedMenu === 'Noticias') {
-        setNoticias((prevNoticias) =>
-          prevNoticias.map((noticia) =>
-            noticia.id === editingItem.id ? updatedItem : noticia
-          )
-        );
-      } else if (selectedMenu === 'Artigos') {
-        setArtigos((prevArtigos) =>
-          prevArtigos.map((artigo) =>
-            artigo.id === editingItem.id ? updatedItem : artigo
-          )
-        );
-      } else if (selectedMenu === 'Videos') {
-        setVideos((prevVideos) =>
-          prevVideos.map((video) =>
-            video.id === editingItem.id ? updatedItem : video
-          )
-        );
-      } else {
-        setAdmins((prevAdmins) =>
-          prevAdmins.map((admin) =>
-            admin.id === editingItem.id ? updatedItem : admin
-          )
-        );
-      }
-    } else {
-      const newInformative = {
-        id: Date.now(),
-        imageUrl: 'https://via.placeholder.com/300',
-        topic: selectedMenu,
-        ...data
-      };
-
-      if (selectedMenu === 'Noticias') {
-        setNoticias((prevNoticias) => [...prevNoticias, newInformative]);
-      } else if (selectedMenu === 'Artigos') {
-        setArtigos((prevArtigos) => [...prevArtigos, newInformative]);
-      } else if (selectedMenu === 'Videos') {
-        setVideos((prevVideos) => [...prevVideos, newInformative]);
-      } else {
-        const newAdmin = {
-          id: Date.now(),
-          ...data
-        };
-        setAdmins((prevAdmins) => [...prevAdmins, newAdmin]);
-      }
-    }
-
-    setShowModal(false);
-  };
-
   const handleToggleActive = (id: number) => {
     setAdmins((prevAdmins) =>
       prevAdmins.map((admin) =>
@@ -253,21 +196,6 @@ export default function AdminPage() {
     <main className="bg-secondary_100 h-screen relative">
       <nav className="z-50">
         <NavBar isAdmin={true} />
-        {/* Navegação mobile */}
-        <div className="lg:hidden w-full">
-          <button
-            className={`rounded-b-xl px-5 py-3 paragraph ${activeTab === 'informativos' ? 'bg-primary_300 text-secondary_100' : 'bg-primary_100 text-secondary_200'}`}
-            onClick={() => setActiveTab('informativos')}
-          >
-            Informativos
-          </button>
-          <button
-            className={`rounded-b-xl px-5 py-3 paragraph ${activeTab === 'administradores' ? 'bg-primary_300 text-secondary_100' : 'bg-primary_100 text-secondary_200'}`}
-            onClick={() => setActiveTab('administradores')}
-          >
-            Administradores
-          </button>
-        </div>
       </nav>
       <section className="flex flex-col items-center gap-10 md:gap-14 px-5 md:px-40 z-40">
         <h1 className="md:highlighted-text section-title text-primary_300 p-5">
@@ -317,13 +245,13 @@ export default function AdminPage() {
           <AdminModalForm
             title={modalTitle}
             onClose={() => setShowModal(false)}
-            onSubmit={handleModalSubmit}
+            onSubmit={() => {}}
           />
         ) : (
           <ModalForm
             title={modalTitle}
             onClose={() => setShowModal(false)}
-            onSubmit={handleModalSubmit}
+            onSubmit={() => {}}
             initialData={editingItem}
           />
         ))}

@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import { FaArrowLeft, FaBars } from 'react-icons/fa';
 
+import Cookies from 'js-cookie';
+
 interface NavItem {
   label: string;
   href: string;
@@ -38,6 +40,7 @@ type NavBarProps = {
 };
 
 export function NavBar({ isAdmin }: NavBarProps) {
+  const myToken = Cookies.get('token');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openSubMenu, setOpenSubMenu] = useState<number | null>(null);
@@ -112,12 +115,23 @@ export function NavBar({ isAdmin }: NavBarProps) {
         </div>
       </div>
       <div className="flex h-full justify-center items-center gap-x-2">
-        <a
-          href="/login"
-          className="text-2l text-gray_100  flex items-center justify-center h-full w-full hover:bg-primary_400 px-4"
-        >
-          Entrar
-        </a>
+        {myToken && (
+          <div
+            onClick={() => Cookies.remove('token')}
+            className="text-2l text-gray_100  flex items-center justify-center h-full w-full hover:bg-primary_400 px-4"
+          >
+            Sair
+          </div>
+        )}
+
+        {!myToken && (
+          <a
+            href="/login"
+            className="text-2l text-gray_100  flex items-center justify-center h-full w-full hover:bg-primary_400 px-4"
+          >
+            Entrar
+          </a>
+        )}
       </div>
       {isMenuOpen && (
         <div className="lg:hidden absolute top-0 left-0 right-0 w-1/2 h-full bg-primary_300 p-4 shadow-lg z-50">
