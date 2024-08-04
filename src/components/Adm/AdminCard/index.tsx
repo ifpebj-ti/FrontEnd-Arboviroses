@@ -1,6 +1,7 @@
 'use client';
 import { useId, useState } from 'react';
 import { FiCopy } from 'react-icons/fi';
+import { toast } from 'react-toastify';
 
 interface AdminData {
   id: number;
@@ -17,6 +18,13 @@ type AdminCardProps = {
 };
 
 export function AdminCard({ data, onToggleActive }: AdminCardProps) {
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(data.uniqueCode);
+      toast.info('Copiado');
+    } catch (err) {}
+  };
+
   return (
     <div className="flex flex-col p-[10px] gap-y-[10px] border rounded-lg shadow-md bg-white relative paragraph-mobile lg:paragraph xl:max-w-3/5">
       <div className="flex w-full justify-between">
@@ -27,9 +35,9 @@ export function AdminCard({ data, onToggleActive }: AdminCardProps) {
         </label>
       </div>
       <p>{data.email}</p>
-      <div className="flex w-full justify-between">
+      <div className="flex w-full justify-between" onClick={copyToClipboard}>
         <p>
-          Código de acesso: <span className="text-primary_200">{data.uniqueCode}</span>
+          Código de acesso: <span className="text-primary_200">*********</span>
         </p>
         <div className="flex gap-x-[5px] text-primary_200 cursor-pointer">
           <FiCopy />
