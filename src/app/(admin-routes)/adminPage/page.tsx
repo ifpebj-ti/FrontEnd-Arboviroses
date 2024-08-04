@@ -2,7 +2,7 @@
 'use client';
 import { useState } from 'react';
 
-import { NavBar, DropdownButton } from '@/components';
+import { NavBar, DropdownButton, Footer } from '@/components';
 import { AdminCard } from '@/components/Adm/AdminCard';
 import { AdminModalForm } from '@/components/Adm/AdmsForms';
 import { ContentRenderer } from '@/components/Adm/ContentRenderer';
@@ -309,6 +309,7 @@ export default function AdminPage() {
             initialData={editingItem}
           />
         ))}
+      <Footer />
     </main>
   );
 }

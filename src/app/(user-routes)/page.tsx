@@ -2,12 +2,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import {
-  NavBar,
   CardInformative,
   CardArticles,
   CardVideos,
-  Loading,
-  Footer
+  Loading
 } from '@/components';
 
 type InformativeData = {
@@ -82,11 +80,10 @@ export default function Home() {
   }, [activeTab]);
 
   return (
-    <main ref={mainRef} className="bg-secondary_100 h-screen relative">
-      <NavBar isAdmin={true} />
+    <main ref={mainRef} className="bg-secondary_100 min-h-screen relative py-4">
       <section className="flex flex-col items-center gap-10 md:gap-14 px-5 md:px-40">
         {/* Navegação mobile */}
-        <div className=" md:hidden w-full -ml-10">
+        <div className="md:hidden w-full -ml-10">
           <button
             className={`rounded-b-xl px-5 py-3 paragraph ${activeTab === 'noticias' ? 'bg-primary_300 text-secondary_100' : 'bg-primary_100 text-secondary_200'}`}
             onClick={() => setActiveTab('noticias')}
@@ -142,7 +139,6 @@ export default function Home() {
           </div>
         )}
       </section>
-      <Footer />
     </main>
   );
 }

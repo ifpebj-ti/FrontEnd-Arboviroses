@@ -91,8 +91,8 @@ export default function GameMemory() {
   };
 
   return (
-    <main className="relative min-h-screen bg-secondary_100">
-      <section className="flex flex-col h-screen items-center gap-8 py-10 px-5 md:px-36">
+    <main className="relative bg-secondary_100">
+      <section className="flex flex-col items-center gap-8 py-10 px-5 md:px-36">
         <div className="flex flex-row w-full justify-between items-center">
           <h1 className="section-title text-primary_300 text-center flex-grow">
             Jogo da Memória

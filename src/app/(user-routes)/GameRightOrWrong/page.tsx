@@ -95,7 +95,7 @@ export default function Quiz() {
                 </p>
               </div>
             </div>
-            <div className="flex flex-row gap-2 md:gap-5 md:w-full fixed bottom-0 left-0 right-0 md:px-36 py-5 px-5">
+            <div className="flex gap-2 md:gap-5 md:w-full absolute bottom-9 left-0 right-0 md:px-36 py-5 px-5">
               <button
                 onClick={() =>
                   handleAnswer(shuffledQuestions[currentQuestion]?.answer)
