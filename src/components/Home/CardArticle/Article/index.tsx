@@ -10,7 +10,7 @@ export function Article({ data }: ArticleProps) {
       <div className="hidden md:block w-full h-0.5 bg-gray_200 mb-3"></div>
       <div className="flex flex-col md:flex-row md:items-center gap-2 md:px-5">
         <img
-          src={data.thumbnailUrl}
+          src={'data:image/png;base64,' + data.fileBase64}
           alt={`Imagem de ${data.title}`}
           className="md:order-2 rounded-lg w-full h-52 md:h-24 object-cover"
         />
