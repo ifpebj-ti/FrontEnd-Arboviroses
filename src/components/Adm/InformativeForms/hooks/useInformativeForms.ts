@@ -33,11 +33,12 @@ export function useInformativeForms(initialData?: any) {
     myDataForm.append('file', data.image[0]);
 
     if (initialData?.id) {
+      console.log('Id:', initialData.id);
       myDataForm.append('id', initialData.id);
     }
 
-    const response = await postInfoHome(myDataForm);
-    console.log(response);
+    // const response = await postInfoHome(myDataForm);
+    // console.log(response);
   }
 
   return { register, handleSubmit, submitForm, errors, isSubmitting };

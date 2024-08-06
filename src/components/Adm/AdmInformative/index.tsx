@@ -2,11 +2,11 @@ import { FiEdit, FiTrash2 } from 'react-icons/fi';
 
 interface InformativeData {
   id: number;
-  imageUrl: string;
+  fileBase64: string;
   topic: string;
   title: string;
-  linkTitle: string;
-  linkUrl: string;
+  titleLink: string;
+  link: string;
 }
 
 type AdmInformativeProps = {
@@ -23,7 +23,7 @@ export function AdmInformative({
   return (
     <div className="flex flex-col md:flex-row gap-2 p-4 border rounded-lg shadow-lg bg-white w-full">
       <img
-        src={data.imageUrl}
+        src={'data:image/png;base64,' + data.fileBase64}
         alt={`Imagem de ${data.topic}`}
         className="rounded-lg md:w-96 md:h-64 w-full h-52 object-cover"
       />
@@ -41,8 +41,8 @@ export function AdmInformative({
           </div>
         </div>
         <h2 className="main-title text-primary_300">{data.title}</h2>
-        <a href={data.linkUrl} className="link paragraph text-primary_200">
-          {data.linkTitle}
+        <a href={data.link} className="link paragraph text-primary_200">
+          {data.titleLink}
         </a>
       </div>
     </div>

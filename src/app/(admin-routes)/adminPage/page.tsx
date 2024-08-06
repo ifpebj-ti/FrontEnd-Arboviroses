@@ -18,20 +18,20 @@ interface DadosMenu {
 
 interface InformativeData {
   id: number;
-  imageUrl: string;
+  fileBase64: string;
   topic: string;
   title: string;
-  linkTitle: string;
-  linkUrl: string;
+  titleLink: string;
+  link: string;
 }
 
 interface VideoData {
   id: number;
-  imageUrl: string;
+  fileBase64: string;
   topic: string;
   title: string;
-  linkTitle: string;
-  linkUrl: string;
+  titleLink: string;
+  link: string;
 }
 
 interface AdminData {
@@ -52,57 +52,57 @@ const dados: DadosMenu[] = [
 const initialNoticias: InformativeData[] = [
   {
     id: 1,
-    imageUrl: 'https://via.placeholder.com/300',
+    fileBase64: 'https://via.placeholder.com/300',
     topic: 'Noticias',
     title: 'Noticia 1',
-    linkTitle: 'Leia mais',
-    linkUrl: 'https://example.com/link1'
+    titleLink: 'Leia mais',
+    link: 'https://example.com/link1'
   },
   {
     id: 2,
-    imageUrl: 'https://via.placeholder.com/300',
+    fileBase64: 'https://via.placeholder.com/300',
     topic: 'Noticias',
     title: 'Noticia 2',
-    linkTitle: 'Leia mais',
-    linkUrl: 'https://example.com/link1'
+    titleLink: 'Leia mais',
+    link: 'https://example.com/link1'
   }
 ];
 
 const initialArtigos: InformativeData[] = [
   {
     id: 1,
-    imageUrl: 'https://via.placeholder.com/300',
+    fileBase64: 'https://via.placeholder.com/300',
     topic: 'Artigos',
     title: 'Artigo 1',
-    linkTitle: 'Leia mais',
-    linkUrl: 'https://example.com/link1'
+    titleLink: 'Leia mais',
+    link: 'https://example.com/link1'
   },
   {
     id: 2,
-    imageUrl: 'https://via.placeholder.com/300',
+    fileBase64: 'https://via.placeholder.com/300',
     topic: 'Artigos',
     title: 'Artigo 2',
-    linkTitle: 'Leia mais',
-    linkUrl: 'https://example.com/link1'
+    titleLink: 'Leia mais',
+    link: 'https://example.com/link1'
   }
 ];
 
 const initialVideos: VideoData[] = [
   {
     id: 1,
-    imageUrl: 'https://via.placeholder.com/300',
+    fileBase64: 'https://via.placeholder.com/300',
     topic: 'Videos',
     title: 'Video 1',
-    linkTitle: 'Assista',
-    linkUrl: 'https://example.com/link1'
+    titleLink: 'Assista',
+    link: 'https://example.com/link1'
   },
   {
     id: 2,
-    imageUrl: 'https://via.placeholder.com/300',
+    fileBase64: 'https://via.placeholder.com/300',
     topic: 'Videos',
     title: 'Video 2',
-    linkTitle: 'Assista',
-    linkUrl: 'https://example.com/link1'
+    titleLink: 'Assista',
+    link: 'https://example.com/link1'
   }
 ];
 
