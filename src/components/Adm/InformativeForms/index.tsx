@@ -15,9 +15,9 @@ type ModalFormProps = {
   initialData?: initialDataInterface;
 };
 
-export function ModalForm({ onClose }: ModalFormProps) {
+export function ModalForm({ onClose, initialData }: ModalFormProps) {
   const { register, errors, handleSubmit, isSubmitting, submitForm } =
-    useInformativeForms();
+    useInformativeForms(initialData);
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">

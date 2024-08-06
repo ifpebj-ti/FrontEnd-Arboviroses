@@ -16,7 +16,9 @@ export function Article({ data }: ArticleProps) {
         />
         <a
           href={data.link}
+          target="_blank"
           className="md:order-1 link w-full text-start md:text-center caption md:paragraph text-primary_200"
+          rel="noreferrer"
         >
           {data.title}
         </a>

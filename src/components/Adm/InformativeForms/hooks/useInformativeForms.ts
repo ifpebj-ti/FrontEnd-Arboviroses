@@ -6,14 +6,22 @@ import { z } from 'zod';
 
 import { mySchema } from '../schemas/schema';
 
-export function useInformativeForms() {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function useInformativeForms(initialData?: any) {
   const myDataForm = new FormData();
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting }
   } = useForm<z.infer<typeof mySchema>>({
-    resolver: zodResolver(mySchema)
+    resolver: zodResolver(mySchema),
+    defaultValues: {
+      topic: initialData?.topic ? initialData.topic : '',
+      title: initialData?.title ? initialData.title : '',
+      titleLink: initialData?.titleLink ? initialData.titleLink : '',
+      link: initialData?.link ? initialData.link : '',
+      typeInfo: initialData?.typeInfo ? initialData.typeInfo : ''
+    }
   });
 
   async function submitForm(data: z.infer<typeof mySchema>) {
@@ -23,6 +31,10 @@ export function useInformativeForms() {
     myDataForm.append('link', data.link);
     myDataForm.append('typeInfo', data.typeInfo);
     myDataForm.append('file', data.image[0]);
+
+    if (initialData?.id) {
+      myDataForm.append('id', initialData.id);
+    }
 
     const response = await postInfoHome(myDataForm);
     console.log(response);

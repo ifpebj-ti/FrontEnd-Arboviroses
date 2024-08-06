@@ -8,6 +8,8 @@ import { AdminModalForm } from '@/components/Adm/AdmsForms';
 import { ContentRenderer } from '@/components/Adm/ContentRenderer';
 import Forms from '@/components/Adm/Forms';
 import { ModalForm } from '@/components/Adm/InformativeForms';
+
+import { getInfoHome } from '@/service/InfoHomeService';
 import { getUsers } from '@/service/UserService';
 
 interface DadosMenu {
@@ -149,6 +151,25 @@ export default function AdminPage() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      // setLoading(true);
+      try {
+        const response = await getInfoHome();
+        const data = response.data;
+        setNoticias(data.filter((item: any) => item.typeInfo === 'New'));
+        setArtigos(data.filter((item: any) => item.typeInfo === 'Article'));
+        setVideos(data.filter((item: any) => item.typeInfo === 'Video'));
+        console.log('Data:', data);
+      } catch (error) {
+        console.error('Erro ao buscar dados:', error);
+      }
+      // setLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
   const handleMenuChange = (menu: string) => {
     setSelectedMenu(menu);
   };
@@ -209,69 +230,71 @@ export default function AdminPage() {
   };
 
   return (
-    <main className="bg-secondary_100 h-screen relative">
-      <nav className="z-50">
-        <NavBar isAdmin={true} />
-      </nav>
-      <section className="flex flex-col items-center gap-10 md:gap-14 px-5 md:px-40 z-40">
-        <h1 className="md:highlighted-text section-title text-primary_300 p-5">
-          Administração
-        </h1>
-        <div className="flex justify-between w-full">
-          {dados.map((item, index) => (
-            <DropdownButton
-              key={index}
-              options={item.Menu}
-              onChange={handleMenuChange}
+    <>
+      <main className="bg-secondary_100 min-h-screen relative">
+        <nav className="z-50">
+          <NavBar isAdmin={true} />
+        </nav>
+        <section className="flex flex-col items-center gap-10 md:gap-14 px-5 md:px-40 z-40">
+          <h1 className="md:highlighted-text section-title text-primary_300 p-5">
+            Administração
+          </h1>
+          <div className="flex justify-between w-full">
+            {dados.map((item, index) => (
+              <DropdownButton
+                key={index}
+                options={item.Menu}
+                onChange={handleMenuChange}
+              />
+            ))}
+            <Forms
+              handleInformativoClick={handleInformativoClick}
+              handleAdministradorClick={handleAdministradorClick}
+            />
+          </div>
+        </section>
+        <section className="flex flex-col xl:flex-row justify-between w-full py-5 md:px-40 bg-gray_100">
+          <div className="flex flex-col space-y-2 w-full xl:w-3/5">
+            <ContentRenderer
+              selectedMenu={selectedMenu}
+              informatives={noticias}
+              articles={artigos}
+              videos={videos}
+              onEdit={handleEditInformative}
+              onRemove={handleRemoveInformative}
+            />
+          </div>
+          <div className="flex flex-col items-center space-y-2 w-full py-5 xl:w-96 xl:mt-0">
+            <article className="relative w-full">
+              <div className="space-y-4">
+                {admins.map((admin) => (
+                  <AdminCard
+                    key={admin.id}
+                    data={admin}
+                    onToggleActive={() => handleToggleActive(admin.id)}
+                  />
+                ))}
+              </div>
+            </article>
+          </div>
+        </section>
+        {showModal &&
+          (modalType === 'admin' ? (
+            <AdminModalForm
+              title={modalTitle}
+              onClose={() => setShowModal(false)}
+              onSubmit={() => {}}
+            />
+          ) : (
+            <ModalForm
+              title={modalTitle}
+              onClose={() => setShowModal(false)}
+              onSubmit={() => {}}
+              initialData={editingItem}
             />
           ))}
-          <Forms
-            handleInformativoClick={handleInformativoClick}
-            handleAdministradorClick={handleAdministradorClick}
-          />
-        </div>
-      </section>
-      <section className="flex flex-col xl:flex-row justify-between w-full py-5 md:px-40 bg-gray_100">
-        <div className="flex flex-col space-y-2 w-full xl:w-3/5">
-          <ContentRenderer
-            selectedMenu={selectedMenu}
-            informatives={noticias}
-            articles={artigos}
-            videos={videos}
-            onEdit={handleEditInformative}
-            onRemove={handleRemoveInformative}
-          />
-        </div>
-        <div className="flex flex-col items-center space-y-2 w-full py-5 xl:w-96 xl:mt-0">
-          <article className="relative w-full">
-            <div className="space-y-4">
-              {admins.map((admin) => (
-                <AdminCard
-                  key={admin.id}
-                  data={admin}
-                  onToggleActive={() => handleToggleActive(admin.id)}
-                />
-              ))}
-            </div>
-          </article>
-        </div>
-      </section>
-      {showModal &&
-        (modalType === 'admin' ? (
-          <AdminModalForm
-            title={modalTitle}
-            onClose={() => setShowModal(false)}
-            onSubmit={() => {}}
-          />
-        ) : (
-          <ModalForm
-            title={modalTitle}
-            onClose={() => setShowModal(false)}
-            onSubmit={() => {}}
-            initialData={editingItem}
-          />
-        ))}
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

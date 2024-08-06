@@ -15,7 +15,9 @@ export function Video({ data }: VideoProps) {
       />
       <a
         href={data.link}
+        target="_blank"
         className="md:order-1 link w-full text-start md:text-center pt-2 caption md:paragraph text-primary_200"
+        rel="noreferrer"
       >
         {data.title}
       </a>

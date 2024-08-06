@@ -15,7 +15,12 @@ export function CardInformative({ data }: CardInformativeProps) {
       <div className="flex flex-col items-start gap-2">
         <p className="caption text-secondary_200">{data.topic}</p>
         <h2 className="main-title text-primary_300">{data.title}</h2>
-        <a href={data.link} className="link paragraph text-primary_200">
+        <a
+          href={data.link}
+          target="_blank"
+          className="link paragraph text-primary_200"
+          rel="noreferrer"
+        >
           {data.title}
         </a>
       </div>
