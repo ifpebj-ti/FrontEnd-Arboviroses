@@ -9,9 +9,9 @@ export function Video({ data }: VideoProps) {
     <div className="flex flex-col items-center md:py-2 w-full">
       <div className="hidden md:block w-full h-0.5 bg-gray_200 mb-3"></div>
       <img
-        src={data.thumbnailUrl}
+        src={'data:image/png;base64,' + data.fileBase64}
         alt={`Imagem de ${data.title}`}
-        className="rounded-lg w-full h-52 md:w-44 md:h-24 object-cover"
+        className="rounded-lg w-fill h-52 md:w-44 md:h-24 object-cover"
       />
       <a
         href={data.link}
