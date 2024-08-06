@@ -1,9 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useInformativeForms } from './hooks/useInformativeForms';
 
+interface initialDataInterface {
+  id?: string;
+  topic: string;
+  title: string;
+  linkTitle: string;
+  linkUrl: string;
+  imagePost: string;
+}
+
 type ModalFormProps = {
   onClose: () => void;
-  initialData?: any;
+  initialData?: initialDataInterface;
 };
 
 export function ModalForm({ onClose }: ModalFormProps) {
@@ -22,11 +31,11 @@ export function ModalForm({ onClose }: ModalFormProps) {
             <input
               id="topic"
               type="text"
-              className="w-full px-3 py-2 border rounded"
+              className="w-full px-3 py-px border rounded"
               {...register('topic')}
             />
             {errors.topic && (
-              <p className="-mt-5 text-red-600">{errors.topic.message}</p>
+              <p className="text-red-600">{errors.topic.message}</p>
             )}
           </div>
           <div className="mb-4">
@@ -36,11 +45,11 @@ export function ModalForm({ onClose }: ModalFormProps) {
             <input
               type="text"
               id="title"
-              className="w-full px-3 py-2 border rounded"
+              className="w-full px-3 py-px border rounded"
               {...register('title')}
             />
             {errors.title && (
-              <p className="-mt-5 text-red-600">{errors.title.message}</p>
+              <p className="text-red-600">{errors.title.message}</p>
             )}
           </div>
           <div className="mb-4">
@@ -50,11 +59,11 @@ export function ModalForm({ onClose }: ModalFormProps) {
             <input
               id="titleLink"
               type="text"
-              className="w-full px-3 py-2 border rounded"
+              className="w-full px-3 py-px border rounded"
               {...register('titleLink')}
             />
             {errors.titleLink && (
-              <p className="-mt-5 text-red-600">{errors.titleLink.message}</p>
+              <p className="text-red-600">{errors.titleLink.message}</p>
             )}
           </div>
           <div className="mb-4">
@@ -63,14 +72,46 @@ export function ModalForm({ onClose }: ModalFormProps) {
             </label>
             <input
               id="link"
-              type="url"
-              className="w-full px-3 py-2 border rounded"
+              type="text"
+              className="w-full px-3 py-px border rounded"
               {...register('link')}
             />
+            {errors.link && (
+              <p className="text-red-600">{errors.link.message}</p>
+            )}
           </div>
-          {errors.link && (
-            <p className="-mt-5 text-red-600">{errors.link.message}</p>
-          )}
+          <div className="mb-4">
+            <label htmlFor="link" className="block text-gray-700">
+              Tipo do informativo
+            </label>
+            <select
+              id="typeInfo"
+              className="w-full px-3 py-px border rounded"
+              {...register('typeInfo')}
+            >
+              <option value="">Selecione o tipo do informativo</option>
+              <option value="Video">Vídeo</option>
+              <option value="New">Notícia</option>
+              <option value="Article">Artigo</option>
+            </select>
+            {errors.typeInfo && (
+              <p className="text-red-600">{errors.typeInfo.message}</p>
+            )}
+          </div>
+          <div className="mb-4">
+            <label htmlFor="image" className="block text-gray-700">
+              Imagem do informativo
+            </label>
+            <input
+              id="image"
+              type="file"
+              className="w-full px-3 py-px border rounded"
+              {...register('image')}
+            />
+            {errors.image && (
+              <p className="text-red-600">{errors.image.message as string}</p>
+            )}
+          </div>
           <div className="flex justify-end">
             <button
               type="button"
