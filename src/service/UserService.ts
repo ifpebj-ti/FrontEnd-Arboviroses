@@ -78,3 +78,20 @@ export async function getUsers() {
 
   return response;
 }
+
+export async function createUser(name: string, email: string) {
+  const response = await api
+    .post('/User', {
+      name: name,
+      email: email,
+      profileId: 'EFD416A7-AAE7-481D-97B8-34AE797410A7'
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+
+  return response;
+}
