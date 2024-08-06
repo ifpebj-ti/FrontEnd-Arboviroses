@@ -95,3 +95,16 @@ export async function createUser(name: string, email: string) {
 
   return response;
 }
+
+export async function toggleActiveUser(id: string) {
+  const response = await api
+    .delete(`/User/${id}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+
+  return response;
+}
