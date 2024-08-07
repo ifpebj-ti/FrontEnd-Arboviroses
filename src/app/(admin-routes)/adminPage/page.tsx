@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import { NavBar, DropdownButton, Footer } from '@/components';
 import { AdminCard } from '@/components/Adm/AdminCard';
@@ -9,7 +10,7 @@ import { ContentRenderer } from '@/components/Adm/ContentRenderer';
 import Forms from '@/components/Adm/Forms';
 import { ModalForm } from '@/components/Adm/InformativeForms';
 
-import { getInfoHome } from '@/service/InfoHomeService';
+import { deleteInfoHome, getInfoHome } from '@/service/InfoHomeService';
 import { getUsers } from '@/service/UserService';
 
 interface DadosMenu {
@@ -142,7 +143,6 @@ export default function AdminPage() {
         const response = await getUsers();
         const data: AdminData[] = Array.isArray(response) ? response : [];
         setAdmins(data);
-        console.log(data);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
       }
@@ -153,18 +153,15 @@ export default function AdminPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      // setLoading(true);
       try {
         const response = await getInfoHome();
         const data = response.data;
         setNoticias(data.filter((item: any) => item.typeInfo === 'New'));
         setArtigos(data.filter((item: any) => item.typeInfo === 'Article'));
         setVideos(data.filter((item: any) => item.typeInfo === 'Video'));
-        console.log('Data:', data);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
       }
-      // setLoading(false);
     };
 
     fetchData();
@@ -193,17 +190,24 @@ export default function AdminPage() {
     }
   };
 
-  const handleRemoveInformative = (id: number) => {
-    if (selectedMenu === 'Noticias') {
-      setNoticias((prevNoticias) =>
-        prevNoticias.filter((noticia) => noticia.id !== id)
-      );
-    } else if (selectedMenu === 'Artigos') {
-      setArtigos((prevArtigos) =>
-        prevArtigos.filter((artigo) => artigo.id !== id)
-      );
-    } else if (selectedMenu === 'Videos') {
-      setVideos((prevVideos) => prevVideos.filter((video) => video.id !== id));
+  const handleRemoveInformative = async (id: number) => {
+    const response = await deleteInfoHome(id.toString());
+    if (response.status === 200) {
+      if (selectedMenu === 'Noticias') {
+        setNoticias((prevNoticias) =>
+          prevNoticias.filter((noticia) => noticia.id !== id)
+        );
+      } else if (selectedMenu === 'Artigos') {
+        setArtigos((prevArtigos) =>
+          prevArtigos.filter((artigo) => artigo.id !== id)
+        );
+      } else if (selectedMenu === 'Videos') {
+        setVideos((prevVideos) =>
+          prevVideos.filter((video) => video.id !== id)
+        );
+      }
+    } else {
+      toast.error('Erro ao excluir informativo');
     }
   };
 

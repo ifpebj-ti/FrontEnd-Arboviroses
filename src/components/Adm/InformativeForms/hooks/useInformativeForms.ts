@@ -37,8 +37,8 @@ export function useInformativeForms(initialData?: any) {
       myDataForm.append('id', initialData.id);
     }
 
-    // const response = await postInfoHome(myDataForm);
-    // console.log(response);
+    const response = await postInfoHome(myDataForm);
+    console.log(response);
   }
 
   return { register, handleSubmit, submitForm, errors, isSubmitting };
