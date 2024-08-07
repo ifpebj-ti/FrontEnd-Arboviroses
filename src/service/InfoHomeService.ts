@@ -49,3 +49,20 @@ export async function deleteInfoHome(id: string) {
 
   return response;
 }
+
+export async function putInfoHome(data: FormData) {
+  const response = await api
+    .put('/InfoHome', data, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+
+  return response;
+}
