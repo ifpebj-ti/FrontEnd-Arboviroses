@@ -1,4 +1,5 @@
 'use client';
+import { toggleActiveUser } from '@/service/UserService';
 import { FiCopy } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
@@ -24,12 +25,18 @@ export function AdminCard({ data, onToggleActive }: AdminCardProps) {
     } catch (err) {}
   };
 
+  async function handleSwitch(){
+    const response = await toggleActiveUser(data.id.toString());
+    console.log(response);
+    toast.info(response.message);
+  }
+
   return (
     <div className="flex flex-col p-[10px] gap-y-[10px] border rounded-lg shadow-md bg-white relative paragraph-mobile lg:paragraph xl:max-w-3/5">
       <div className="flex w-full justify-between">
         <h1 className="section-title-mobile lg:caption">{data.name}</h1>
         <label className="inline-flex items-center cursor-pointer">
-          <input type="checkbox" value="" className="sr-only peer" />
+          <input type="checkbox" value="" className="sr-only peer" onClick={handleSwitch}/>
           <div className="relative w-9 h-5 border-2 border-primary_200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full after:content-[''] after:absolute after:top-[2px] after:start-[4px] after:bg-primary_200 after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:border-danger_300 peer-checked:after:bg-danger_300" />
         </label>
       </div>
